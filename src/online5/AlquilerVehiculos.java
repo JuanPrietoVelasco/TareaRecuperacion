@@ -297,7 +297,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                     caseCerrarAlquiler();
                     break;
                 case 9:
-                    caseListarAlquileres();
+                    //caseListarAlquileres();
                     break;
                 case 10:
                     escribir("Fin de programa");
