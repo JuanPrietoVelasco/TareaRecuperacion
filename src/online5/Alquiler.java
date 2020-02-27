@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 
 /**
- * * @author juan prieto
+ * * @author juans
  */
 public class Alquiler {
     
