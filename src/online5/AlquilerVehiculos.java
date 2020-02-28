@@ -241,7 +241,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
 
         for (int i = 0; i < MAX_ALQUILERES; i++) {
             if (alquileres[i].getCliente().equals(cliente) && alquileres[i].getVehiculo().equals(vehiculo)) {
-                alquileres[i].cerrar();
+                alquileres[i].cerrar(vehiculos);
                 escribirLn("Alquiler finalizado con exito.");
             }
         }
@@ -297,7 +297,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                     caseCerrarAlquiler();
                     break;
                 case 9:
-                    //caseListarAlquileres();
+                    caseListarAlquileres();
                     break;
                 case 10:
                     escribir("Fin de programa");
@@ -501,10 +501,107 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
         }
 
     }
-    
-    public static void caseCerrarAlquiler(){
-    
-    
+
+    public static void caseCerrarAlquiler() {
+        String dni;
+        String dniAux;
+        String matricula;
+        int posCliente;
+        int posVehiculo;
+        boolean value = false;
+        Cliente cliente;
+        Vehiculo vehiculo;
+
+        dni = (leerCadena("Introduzca Dni del cliente: ")).toUpperCase();
+        dniAux = dni;
+
+        if (comprobarDni(dniAux)) {
+
+            //Comprobamos si es un NIE, y en caso de serlo lo convertimos a DNI para posteriormente
+            //comprobar la letra final.
+            if (dniAux.substring(0, 1).equalsIgnoreCase("X")
+                    || dniAux.substring(0, 1).equalsIgnoreCase("Y")
+                    || dniAux.substring(0, 1).equalsIgnoreCase("Z")) {
+                dniAux = pasarNieADni(dniAux);
+            }
+
+            //Comprobamos la letra final del dni para validarlo
+            if (dniAux.substring(8, 9).equalsIgnoreCase(calcularLetraDni(dniAux.substring(0, 8)))) {
+
+                posCliente = buscarCliente(dni);
+
+                if (posCliente != -1) {
+
+                    cliente = clientes[posCliente];
+
+                    matricula = leerCadena("Introduzca matricula del vehículo: ").toUpperCase();
+
+                    if (comprobarMatricula(matricula)) {
+
+                        posVehiculo = buscarVehiculo(matricula);
+
+                        if (posVehiculo != -1) {
+
+                            vehiculo = vehiculos[posVehiculo];
+
+                            if (!vehiculo.isDisponible()) {
+
+                                for (int i = 0; i < alquileres.length && !value; i++) {
+                                    if (alquileres[i] != null) {
+
+                                        if (alquileres[i].getCliente().equals(cliente) && alquileres[i].getVehiculo().equals(vehiculo)) {
+
+                                            alquileres[i].cerrar(vehiculos);
+                                            value = true;
+
+                                        }
+                                    }
+                                }
+
+                                if (!value) {
+                                    escribir("No hay alquileres que contengan el cliente y el vehiculo indicado.");
+                                } else {
+                                    escribir("Alquiler cerrado correctamente");
+                                }//FIN
+
+                            } else {
+                                escribir("El vehiculo no está en alquiler.");
+                            }
+
+                        } else {
+                            System.out.println("El vehículo no está registrado.");
+                        }
+
+                    } else {
+                        System.out.println("Formato de matrícula incorrecto.");
+                    }
+
+                } else {
+                    escribir("No hay ningún cliente registro con el Dni/Nie proporciado");
+                }
+
+            } else {
+                escribir("Letra del Dni/Nie incorrecto.");
+            }
+
+        } else {
+            escribir("Formato de DNI incorrecto");
+        }
+
     }
 
+    public static void caseListarAlquileres() {
+        boolean vacio=true;
+        
+        for (int i = 0; i < alquileres.length; i++) {
+            if (alquileres[i] != null) {
+                escribirLn(alquileres[i].toString());
+                vacio=false;
+            }
+
+        }
+        if (vacio){
+            escribir("No existen alquileres");
+        }
+    }
 }
