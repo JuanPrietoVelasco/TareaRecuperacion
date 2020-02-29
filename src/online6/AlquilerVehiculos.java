@@ -389,11 +389,29 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
         String matricula = (leerCadena("Introduce matrícula del vehículo: ")).toUpperCase();
         //escribirLn(matricula);
         if (comprobarMatricula(matricula)) {
+            
+            
+            
+            
             String marca = (leerCadena("Introduzca marca del vehículo: ")).toUpperCase();
             String modelo = (leerCadena("Introduce modelo del vehículo: ")).toUpperCase();
             int cilindrada = leerEntero("Introduce cilindrada del vehículo: ");
-            Vehiculo vehiculo = new Vehiculo(matricula, marca, modelo, cilindrada);
-            anadirVehiculo(vehiculo);
+            
+            //Seleccione Tipo de vehiculo
+            //1.Mercancias
+            //2.Turismo
+            
+            //switch(opcion)
+            
+            //case->1
+            
+            //crearFurgoneta()
+            
+            
+            
+            
+            //------Vehiculo vehiculo = new Vehiculo(matricula, marca, modelo, cilindrada);
+            //anadirVehiculo(vehiculo);
         } else {
             escribirLn("********************ATENCION********************");
             escribirLn("Formato de matrícula incorrecto.");

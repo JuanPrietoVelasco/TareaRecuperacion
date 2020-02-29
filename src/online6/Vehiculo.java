@@ -9,7 +9,7 @@ package online6;
  *
  * @author juans
  */
-public class Vehiculo {
+public abstract class Vehiculo {
     
     private String matricula;
     private String marca;
@@ -17,6 +17,7 @@ public class Vehiculo {
     private int cilindrada;
     private boolean disponible;
     
+    public Vehiculo(){}
     
     public Vehiculo (String matricula, String marca, String modelo, int cilindrada){
         this.matricula=matricula;
@@ -32,8 +33,7 @@ public class Vehiculo {
         this.modelo = vehiculo.modelo;
         this.cilindrada = vehiculo.cilindrada;
     }
-    
-    
+        
     public void setDisponible (boolean disponible){
         this.disponible=disponible;
     }

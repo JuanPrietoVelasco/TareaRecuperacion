@@ -11,4 +11,21 @@ package online6;
  */
 public class Enumerados {
     
+    public enum Combustible{
+        GASOLINA, DIESEL, HIBRIDO, ELECTRICO;
+        
+        Combustible(){}
+    }
+    
+    public enum CajaCambios{
+        AUTOMATICO, MANUAL;
+        
+        CajaCambios(){}
+    }
+    
+    public enum Tamanio{
+        GRANDE, MEDIANA, PEQUENIA;
+        
+        Tamanio(){}
+    }
 }
