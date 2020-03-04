@@ -11,7 +11,7 @@ import online6.Enumerados.CajaCambios;
  *
  * @author juans
  */
-public  class Deportivo extends Turismo {
+public final class Deportivo extends Turismo {
     
     private CajaCambios cambio;
     private boolean descapotable;
@@ -36,7 +36,10 @@ public  class Deportivo extends Turismo {
 
     @Override
     public String toString() {
-        return super.toString() + " Tipo de cambio: " + cambio + " Descapotable: " + descapotable; //To change body of generated methods, choose Tools | Templates.
+        
+        String descapotable = (this.descapotable) ? "SI" : "NO"; 
+        
+        return super.toString() + " Tipo de cambio: " + cambio + " Descapotable: " + descapotable; 
     }
    
 }

@@ -24,7 +24,8 @@ public class Enumerados {
     }
     
     public enum Tamanio{
-        GRANDE, MEDIANA, PEQUENIA;
+        
+        GRANDE, MEDIANO, PEQUENIO;
         
         Tamanio(){}
     }

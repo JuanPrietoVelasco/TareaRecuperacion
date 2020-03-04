@@ -9,6 +9,7 @@ import java.util.Scanner;
 import static online6.ES.*;
 import static online6.Utilidades.*;
 import static online6.Cliente.*;
+import static online6.Enumerados.*;
 
 /**
  *
@@ -135,7 +136,7 @@ lo devuelva si este existe o null en caso contrario.*/
     /*Crea un método anadirVehiculo que añada un coche al array de vehiculos si
 cabe y no existe ningún otro con la misma matrícula o muestre un mensaje con el
 error que se ha producido.*/
-    public static void anadirVehiculo(Vehiculo v) {
+    public static void anadirVehiculo() {
         //pos para guardar primera posición nula(vacia)
         int pos = -1;
         boolean encontrado = false;
@@ -151,26 +152,91 @@ error que se ha producido.*/
         //existe espacio en el array, ha dado toda la vuelta y pos no ha cambiado. Ahora comprobamos que no este ya guarda la matrícula
         //Si 0 esta vacia, pos = 0 por ser null, pero 0 aún no tine vehículo para poder comparar matrícula.(pos!=0)
         if (pos != -1) {
-            for (int i = 0; i < vehiculos.length; i++) {
 
-                if (vehiculos[i] != null && vehiculos[i].getMatricula().equalsIgnoreCase(v.getMatricula())) {
-                    /**/ escribirLn(vehiculos[i].getMatricula());
-                    encontrado = true;
-                    break;
+            //Existe espacio vacío. Comenzamos a pedir información al usuario.
+            String matricula = (leerCadena("Introduce matrícula del vehículo: ")).toUpperCase();
+
+            if (comprobarMatricula(matricula)) {
+
+                for (int i = 0; i < vehiculos.length; i++) {
+
+                    if (vehiculos[i] != null && vehiculos[i].getMatricula().equalsIgnoreCase(matricula)) {
+                        // escribirLn(vehiculos[i].getMatricula());
+                        encontrado = true;
+                        break;
+                    }
                 }
-            }
 
-            if (encontrado) {
-                escribirLn("********************ATENCION********************");
-                escribirLn("Matrícula ya registrada. Vehiculo no añadido.");
-                escribirLn("------------------------------------------------\n");
+                if (encontrado) {
+                    escribirLn("********************ATENCION********************");
+                    escribirLn("Matrícula ya registrada. Vehiculo no añadido.");
+                    escribirLn("------------------------------------------------\n");
+                } else {
+
+                    //Si la matricula no está registrada, comenzamos a pedir los datos del vehiculo.
+                    String marca = (leerCadena("Introduzca marca del vehículo: ")).toUpperCase();
+                    String modelo = (leerCadena("Introduce modelo del vehículo: ")).toUpperCase();
+                    int cilindrada = leerEntero("Introduce cilindrada del vehículo: ");
+                    int seleccion = leerEntero(1, 2, "Seleccione tipo de vehículo.\n1.Mercancias.\n2.Turismo.");
+
+                    if (seleccion == 1) {
+
+                        int pma = leerEntero("Va a registrar una furgoneta.\nIntroduzca pma: ");
+                        int volumen = leerEntero("Introduzca volumen: ");
+                        boolean refrigerado = leerBoolean("Vehículo refrigerado S/N");
+
+                        int posicion = leerEntero(1, 3, "Seleccione un tamaño:\n1.Grande\n2.Mediano\n3.Pequeño");
+
+                        Tamanio tamanio = Tamanio.values()[posicion - 1];
+
+                        Furgoneta furgoneta = new Furgoneta(refrigerado, tamanio, pma, volumen, matricula, marca, modelo, cilindrada);
+                        
+                        vehiculos[pos] = furgoneta;
+                        
+                        escribirLn("Vehiculo añadido correctamente.");
+                        
+                    }else{
+                                           
+                        int numPuertas=leerEntero(3, 5, "Va a añadir un turismo.\nIntroduzca número de puertas:");
+                        
+                        int posicion = leerEntero(1, 4, "Seleccione tipo de combustible:\n1.Gasolina.\n2.Diesel.\n3.Híbrido.\n4.Eléctrico.");
+                        
+                        Combustible combustible = Combustible.values()[posicion-1];
+                       
+                        seleccion = leerEntero(1, 2, "Escoja tipo de turismo:\n1.Familiar.\n2.Deportivo");
+                        
+                        if (seleccion==1){
+                            escribir("Ha escogido añadir un familiar.");
+                            
+                            int numPlazas = leerEntero(4, 7, "Elija el número de plazas entre 4 y 7.");
+                            
+                            boolean sillaBebe = leerBoolean("¿Tiene silla de bebe? S/N");
+                            
+                            Familiar familiar = new Familiar(matricula, marca, modelo, cilindrada, numPuertas, combustible, numPlazas, sillaBebe);
+                            
+                        }else{
+                            escribir("Ha escogido añadir un deportivo");
+                            
+                            boolean descapotable = leerBoolean("¿Deportivo descapotable? S/N");
+                            
+                            int opcion = leerEntero(1, 2, "Seleccione tipo de caja de cambios: \n1.Automático.\n2.Manual.");
+                            
+                            CajaCambios cambio = CajaCambios.values()[opcion-1];
+                            
+                            Deportivo deportivo = new Deportivo(matricula, marca, modelo, cilindrada, numPuertas, combustible, cambio, descapotable);
+                        
+                        }
+                        
+                    }
+
+                }
+
             } else {
-                vehiculos[pos] = v;
-                escribirLn(vehiculos[pos].toString());
-                escribirLn("Vehiculo añadido correctamente.");
+                escribirLn("********************ATENCION********************");
+                escribirLn("Formato de matrícula incorrecto.");
                 escribirLn("------------------------------------------------\n");
-            }
 
+            }
         } else {
             escribirLn("********************ATENCION********************");
             escribirLn("No hay espacio para nuevos vehiculos.");
@@ -282,7 +348,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                     caseListarClientes();
                     break;
                 case 4:
-                    caseAnadirVehiculo();
+                    anadirVehiculo();
                     break;
                 case 5:
                     caseBorrarVehiculo();
@@ -387,29 +453,40 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
     public static void caseAnadirVehiculo() {
 
         String matricula = (leerCadena("Introduce matrícula del vehículo: ")).toUpperCase();
-        //escribirLn(matricula);
+
         if (comprobarMatricula(matricula)) {
-            
-            
-            
-            
+
             String marca = (leerCadena("Introduzca marca del vehículo: ")).toUpperCase();
             String modelo = (leerCadena("Introduce modelo del vehículo: ")).toUpperCase();
             int cilindrada = leerEntero("Introduce cilindrada del vehículo: ");
-            
+            int seleccion = leerEntero(1, 2, "Seleccione tipo de vehículo.\n1.Mercancias.\n2.Turismo.");
+
+            if (seleccion == 1) {
+
+                int pma = leerEntero("Va a registrar una furgoneta.\nIntroduzca pma: ");
+                int volumen = leerEntero("Introduzca volumen: ");
+                boolean refrigerado = leerBoolean("Vehículo refrigerado S/N");
+
+                int posicion = leerEntero(1, 3, "Seleccione un tamaño:\n1.Grande\n2.Mediano\n3.Pequeño");
+
+                Tamanio tamanio = Tamanio.values()[posicion - 1];
+
+                Furgoneta furgoneta = new Furgoneta(refrigerado, tamanio, pma, volumen, matricula, marca, modelo, cilindrada);
+
+            }
+            if (seleccion == 2) {
+                int numPuertas;
+
+            } else {
+                escribir("Opción incorrecta.");
+            }
+
             //Seleccione Tipo de vehiculo
             //1.Mercancias
             //2.Turismo
-            
             //switch(opcion)
-            
             //case->1
-            
             //crearFurgoneta()
-            
-            
-            
-            
             //------Vehiculo vehiculo = new Vehiculo(matricula, marca, modelo, cilindrada);
             //anadirVehiculo(vehiculo);
         } else {
@@ -609,16 +686,16 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
     }
 
     public static void caseListarAlquileres() {
-        boolean vacio=true;
-        
+        boolean vacio = true;
+
         for (int i = 0; i < alquileres.length; i++) {
             if (alquileres[i] != null) {
                 escribirLn(alquileres[i].toString());
-                vacio=false;
+                vacio = false;
             }
 
         }
-        if (vacio){
+        if (vacio) {
             escribir("No existen alquileres");
         }
     }

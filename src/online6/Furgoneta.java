@@ -16,8 +16,8 @@ public class Furgoneta extends Mercancias {
     Tamanio tamanio; 
     public Furgoneta(boolean refrigerado, Tamanio tamanio, int pma, int volumen, String matricula, String marca, String modelo, int cilindrada) {
         super(pma, volumen, matricula, marca, modelo, cilindrada);
-        this.refrigerado=refrigerado;
-        this.tamanio=tamanio;
+        this.refrigerado = refrigerado;
+        this.tamanio = tamanio;
     }
 
     public boolean isRefrigerado() {

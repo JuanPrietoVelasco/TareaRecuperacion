@@ -9,7 +9,7 @@ package online6;
  *
  * @author juans
  */
-public class Familiar extends Turismo{
+public final class Familiar extends Turismo{
     private int numPlazas;
     private boolean sillaBebe;
     
@@ -25,11 +25,20 @@ public class Familiar extends Turismo{
     }
 
     public boolean isSillaBebe() {
+   
         return sillaBebe;
     }
 
     @Override
     public String toString() {
+        
+        //String sillaBebe = (this.sillaBebe) ? "SI" : "NO";
+        String sillaBebe;
+        if (this.sillaBebe){
+            sillaBebe="SI";
+        }else
+            sillaBebe="NO";
+        
         return super.toString() + " Número de plazas: " + numPlazas + " Silla de bebe: " + sillaBebe; 
     }
     

@@ -61,7 +61,10 @@ public abstract class Vehiculo {
     
     @Override
     public String toString(){
+        
+        String disponible = (this.disponible) ? "SI" : "NO";
+        
         return "Matrícula: " + this.matricula + "\t\tMarca: " + this.marca + "\t\tModelo: " + 
-                this.modelo + "\t\tCilindrada: " + this.cilindrada + "\t\tDisponible: " + this.disponible;
+                this.modelo + "\t\tCilindrada: " + this.cilindrada + "\t\tDisponible: " + disponible;
     }
 }
