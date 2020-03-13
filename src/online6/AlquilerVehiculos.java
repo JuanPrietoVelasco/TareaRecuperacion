@@ -115,6 +115,33 @@ y si no existe ningún otro con el mismo DNI o muestre un mensaje con el error q
         }
         return pos;
     }
+    
+    
+    /*public static boolean guardarDatos(){
+        
+        boolean resultado=false;
+        String dato ="";
+        
+        for (int i = 0; i < clientes.length; i++) {
+ 
+            if(clientes[i]!=null){
+                dato+=clientes[i].getDni()+"#"+clientes[i].getNombre()+"#"+clientes[i].getDireccion()+
+            
+            
+            }
+                    
+            
+        }
+        
+        if(!dato.equalsIgnoreCase("")){
+            es
+    }
+        
+        return resultado;
+    }*/
+    
+    
+    
 
     /*Crea un método getVehiculo que se le pase la matrícula de un turismo y nos
 lo devuelva si este existe o null en caso contrario.*/
@@ -197,7 +224,7 @@ error que se ha producido.*/
                         
                     }else{
                                            
-                        int numPuertas=leerEntero(3, 5, "Va a añadir un turismo.\nIntroduzca número de puertas:");
+                        int numPuertas=leerEntero(3, 5, "Va a añadir un turismo.\nIntroduzca número de puertas entre 3 y 5:");
                         
                         int posicion = leerEntero(1, 4, "Seleccione tipo de combustible:\n1.Gasolina.\n2.Diesel.\n3.Híbrido.\n4.Eléctrico.");
                         
@@ -214,6 +241,10 @@ error que se ha producido.*/
                             
                             Familiar familiar = new Familiar(matricula, marca, modelo, cilindrada, numPuertas, combustible, numPlazas, sillaBebe);
                             
+                            vehiculos[pos]=familiar;
+                            
+                            escribir("Vehículo familiar añadido correctamente.");
+                            
                         }else{
                             escribir("Ha escogido añadir un deportivo");
                             
@@ -224,6 +255,10 @@ error que se ha producido.*/
                             CajaCambios cambio = CajaCambios.values()[opcion-1];
                             
                             Deportivo deportivo = new Deportivo(matricula, marca, modelo, cilindrada, numPuertas, combustible, cambio, descapotable);
+                            
+                            vehiculos[pos]=deportivo;
+                            
+                            escribir("Vehículo deportivo añadido correctamente.");
                         
                         }
                         

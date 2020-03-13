@@ -12,15 +12,16 @@ import online6.Enumerados.Tamanio;
  * @author juans
  */
 public class Furgoneta extends Mercancias {
-    boolean refrigerado;
-    Tamanio tamanio; 
+    private boolean refrigerado;
+    private Tamanio tamanio;
+    
     public Furgoneta(boolean refrigerado, Tamanio tamanio, int pma, int volumen, String matricula, String marca, String modelo, int cilindrada) {
         super(pma, volumen, matricula, marca, modelo, cilindrada);
         this.refrigerado = refrigerado;
         this.tamanio = tamanio;
     }
 
-    public boolean isRefrigerado() {
+    public boolean getRefrigerado() {
         return refrigerado;
     }
 

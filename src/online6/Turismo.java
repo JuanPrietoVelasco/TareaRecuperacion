@@ -13,8 +13,8 @@ import online6.Enumerados.Combustible;
  */
 public abstract class Turismo extends Vehiculo{
     
-    private int numPuertas;
-    private Combustible combustible;
+    protected int numPuertas;
+    protected Combustible combustible;
     
     public Turismo(String matricula, String marca, String modelo, int cilindrada,int numPuertas, Combustible combustible) {
         super(matricula, marca, modelo, cilindrada);
@@ -42,6 +42,6 @@ public abstract class Turismo extends Vehiculo{
 
     @Override
     public String toString() {
-        return super.toString() + " Número de puertas: " + this.numPuertas + " Combustible: " + this.combustible; 
+        return super.toString() + "\t\tNúmero de puertas: " + this.numPuertas + "\t\tCombustible: " + this.combustible; 
     }
 }

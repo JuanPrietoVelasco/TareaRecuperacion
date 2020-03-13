@@ -5,6 +5,8 @@
  */
 package online6;
 
+import online6.Enumerados.Combustible;
+
 /**
  *
  * @author juans
@@ -24,9 +26,22 @@ public final class Familiar extends Turismo{
         return numPlazas;
     }
 
-    public boolean isSillaBebe() {
+    public boolean getSillaBebe() {
    
         return sillaBebe;
+    }
+    
+    @Override
+    public Combustible getCombustible(){
+        return super.getCombustible();
+    }
+    
+    public int getNumeroPuertas(){
+        return super.getNumPuertas();
+    }
+    
+    public void setSillaBebe(boolean sillaBebe){
+        this.sillaBebe = sillaBebe;
     }
 
     @Override
@@ -39,7 +54,7 @@ public final class Familiar extends Turismo{
         }else
             sillaBebe="NO";
         
-        return super.toString() + " Número de plazas: " + numPlazas + " Silla de bebe: " + sillaBebe; 
+        return super.toString() + "\t\tNúmero de plazas: " + numPlazas + "\t\tSilla de bebe: " + sillaBebe; 
     }
     
     

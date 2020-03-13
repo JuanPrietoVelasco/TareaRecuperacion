@@ -5,7 +5,8 @@
  */
 package online6;
 
-import online6.Enumerados.CajaCambios;
+import online6.Enumerados.*;
+
 
 /**
  *
@@ -30,10 +31,22 @@ public final class Deportivo extends Turismo {
         return cambio;
     }
 
-    public boolean isDescapotable() {
+    public boolean getDescapotable() {
         return descapotable;
     }
-
+    
+    
+    @Override
+    public Combustible getCombustible(){
+        return super.getCombustible();
+    }
+    
+   
+    public int getNumeroPuertas(){
+        return super.getNumPuertas();
+    }
+    
+   
     @Override
     public String toString() {
         
