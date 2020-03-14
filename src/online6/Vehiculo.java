@@ -54,7 +54,7 @@ public abstract class Vehiculo {
         return this.cilindrada;
     }
     
-    public boolean isDisponible (){
+    public boolean getDisponible (){
        
        return disponible;
     }
