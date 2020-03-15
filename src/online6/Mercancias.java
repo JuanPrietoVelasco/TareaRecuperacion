@@ -34,7 +34,7 @@ public abstract class Mercancias extends Vehiculo{
 
     @Override
     public String toString() {
-        return super.toString() + " PMA: " + pma + " Volumen: " + volumen; 
+        return super.toString() + "\t\tPMA: " + pma + "\t\tVolumen: " + volumen; 
     }
     
 }

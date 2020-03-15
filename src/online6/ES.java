@@ -74,6 +74,7 @@ public class ES {
                 }
             } catch (Exception e) {
                 correcto = false;
+                System.out.println("Introduce un número entre " + min + " y " + max + " .");
             }
         } while (!correcto);
         return num;

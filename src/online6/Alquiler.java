@@ -88,7 +88,7 @@ public class Alquiler {
 
     @Override
     public String toString() {
-        return "\nCliente: \n" + cliente.toString() + "\n" + "Vehículo: \n" + vehiculo.toString();
+        return "\nCliente: " + cliente.toString() + "\n" + "Vehículo: \n" + vehiculo.toString();
     }
 
 }
