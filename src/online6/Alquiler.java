@@ -41,6 +41,15 @@ public class Alquiler {
     public Cliente getCliente() {
         return cliente;
     }
+    
+    public void setFecha(Calendar fecha){
+        this.fecha = fecha;
+    }
+    
+    public void setDias(int dias){
+        this.dias = dias;
+    }
+    
 
     /*Crea un método cerrar que cerrará el alquiler, para lo que, partiendo de la
     fecha actual y la fecha en que se realizó el alquiler, calcule el número de

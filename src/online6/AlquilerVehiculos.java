@@ -5,6 +5,7 @@
  */
 package online6;
 
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import static online6.ES.*;
 import static online6.Utilidades.*;
@@ -25,6 +26,7 @@ public class AlquilerVehiculos {
     private static Cliente[] clientes = new Cliente[MAX_CLIENTES];
     private static Alquiler[] alquileres = new Alquiler[MAX_ALQUILERES];
     private static boolean esCorrecto;
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public AlquilerVehiculos() {
     }
@@ -119,29 +121,7 @@ y si no existe ningún otro con el mismo DNI o muestre un mensaje con el error q
         return pos;
     }
 
-    /*public static boolean guardarDatos(){
-        
-        boolean resultado=false;
-        String dato ="";
-        
-        for (int i = 0; i < clientes.length; i++) {
- 
-            if(clientes[i]!=null){
-                dato+=clientes[i].getDni()+"#"+clientes[i].getNombre()+"#"+clientes[i].getDireccion()+
-            
-            
-            }
-                    
-            
-        }
-        
-        if(!dato.equalsIgnoreCase("")){
-            es
-    }
-        
-        return resultado;
-    }*/
- /*Crea un método getVehiculo que se le pase la matrícula de un turismo y nos
+    /*Crea un método getVehiculo que se le pase la matrícula de un turismo y nos
 lo devuelva si este existe o null en caso contrario.*/
     public static Vehiculo getVehiculo(String matricula) {
         Vehiculo v = null;
@@ -214,7 +194,7 @@ error que se ha producido.*/
 
                         Tamanio tamanio = Tamanio.values()[posicion - 1];
 
-                        Furgoneta furgoneta = new Furgoneta(refrigerado, tamanio, pma, volumen, matricula, marca, modelo, cilindrada);
+                        Furgoneta furgoneta = new Furgoneta(matricula, marca, modelo, cilindrada, pma, volumen, refrigerado, tamanio);
 
                         vehiculos[pos] = furgoneta;
 
@@ -361,6 +341,9 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
 
     //---------------------------------------MAIN------------------------------------------------------//  
     public static void main(String[] args) {
+
+        leerDatos();
+
         int opcion;
         Scanner sc = new Scanner(System.in);
         escribirLn("-------------------------------------------------------");
@@ -409,7 +392,9 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                 case 10:
                     guardarDatos();
                     break;
-
+                case 11:
+                    leerDatos();
+                    break;
                 case 12:
                     escribirLn("\nFin de programa");
                     escribirLn("------------------------------------------------\n");
@@ -419,12 +404,13 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
             }
         } while (opcion != 12);
     }
-//---------------------------------------METODOS OPCIONES MENU-------------------------------------//
 
+//---------------------------------------METODOS OPCIONES MENU-------------------------------------//
     public static void caseAnadirCliente() {
 
         String nie;
         String dni = leerCadena("\nIntroduce Dni/Nie de cliente: ").toUpperCase();
+        boolean value = false;
         if (comprobarDni(dni)) {
             nie = dni;
             if (nie.substring(0, 1).equalsIgnoreCase("X")
@@ -439,16 +425,17 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                 String direccion = leerCadena("\nIntroduce dirección de cliente: ").toUpperCase();
                 String localidad = leerCadena("\nIntroduce localidad de cliente: ").toUpperCase();
 
-                //utilizar otro while para volver a pedir el cp si fuera erroneo
-                String cod_postal = leerCadena("\nIntroduce el código postal de cliente: ");
+                //utilizar un while para volver a pedir el cp si fuera erroneo
+                while (!value) {
+                    String cod_postal = leerCadena("\nIntroduce el código postal de cliente: ");
+                    if (comprobarCodigoPostal(cod_postal)) {
+                        value = true;
+                        anadirCliente(new Cliente(dni, nombre, direccion, localidad, cod_postal));
 
-                if (comprobarCodigoPostal(cod_postal)) {
-
-                    anadirCliente(new Cliente(dni, nombre, direccion, localidad, cod_postal));
-
-                } else {
-                    escribirLn("\nCódigo postal incorrecto.");
-                    escribirLn("------------------------------------------------\n");
+                    } else {
+                        escribirLn("\nCódigo postal incorrecto.");
+                        escribirLn("------------------------------------------------\n");
+                    }
                 }
 
             } else {
@@ -502,7 +489,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
         escribirLn("------------------------------------------------\n");
     }
 
-    public static void caseAnadirVehiculo() {
+    /*public static void caseAnadirVehiculo() {
 
         String matricula = (leerCadena("Introduce matrícula del vehículo: ")).toUpperCase();
 
@@ -548,7 +535,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
             escribirLn("------------------------------------------------\n");
         }
     }
-
+     */
     public static void caseBorrarVehiculo() {
 
         String matricula = (leerCadena("\nIntroduce matrícula del vehiculo a borrar: ")).toUpperCase();
@@ -822,21 +809,50 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
 
         for (int i = 0; i < vehiculos.length; i++) {
 
+            //int numPuertas, Enumerados.Combustible combustible, CajaCambios cambio,boolean descapotable
             if (vehiculos[i] != null) {
 
-                datosVehiculos += vehiculos[i].getMatricula() + "#" + vehiculos[i].getMarca() + "#"
-                        + vehiculos[i].getModelo() + "#" + vehiculos[i].getMatricula() + "#"
-                        + vehiculos[i].getCilindrada() + "\n";
-            }
-        }
+                if (vehiculos[i] instanceof Deportivo) {
 
+                    Deportivo aux = (Deportivo) vehiculos[i];
+
+                    datosVehiculos += "Deportivo#" + aux.getMatricula() + "#" + aux.getMarca() + "#"
+                            + aux.getModelo() + "#" + aux.getCilindrada() + "#" + aux.getDisponible() + "#"
+                            + +aux.getNumeroPuertas() + "#" + aux.getCombustible() + "#" + aux.getCambio() + "#" + aux.getDescapotable()+"\n";
+
+                }
+
+                if (vehiculos[i] instanceof Familiar) {
+
+                    Familiar aux = (Familiar) vehiculos[i];
+
+                    datosVehiculos += "Familiar#" + aux.getMatricula() + "#" + aux.getMarca() + "#"
+                            + aux.getModelo() + "#" + aux.getCilindrada() + "#" + aux.getDisponible() + "#"
+                            + +aux.getNumeroPuertas() + "#" + aux.getCombustible() + "#" + aux.getNumPlazas() + "#" + aux.getSillaBebe()+"\n";
+
+                }
+
+                if (vehiculos[i] instanceof Furgoneta) {
+
+                    Furgoneta aux = (Furgoneta) vehiculos[i];
+
+                    datosVehiculos += "Furgoneta#" + aux.getMatricula() + "#" + aux.getMarca() + "#"
+                            + aux.getModelo() + "#" + aux.getCilindrada() + "#" + aux.getDisponible() + "#"
+                            + +aux.getPma() + "#" + aux.getVolumen() + "#" + aux.getRefrigerado() + "#" + aux.getTamanio()+"\n";
+
+                }
+
+            }
+
+        }
+        
         if (escribirArchivo(ruta, datosVehiculos, true)) {
-            escribirLn("\nDatos de vehículos guardados correctamente.");
-            escribirLn("------------------------------------------------\n");
-        } else {
-            escribirLn("\n********************ATENCION********************");
-            escribirLn("Error en escritura de datos.");
-            escribirLn("------------------------------------------------\n");
+                escribirLn("\nDatos de vehículos guardados correctamente.");
+                escribirLn("------------------------------------------------\n");
+            } else {
+                escribirLn("\n********************ATENCION********************");
+                escribirLn("Error en escritura de datos.");
+                escribirLn("------------------------------------------------\n");
         }
 
         //Archivo para array alquileres
@@ -846,7 +862,9 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
         for (int i = 0; i < alquileres.length; i++) {
 
             if (alquileres[i] != null) {
-                datosAlquileres += alquileres[i].getCliente() + "#" + alquileres[i].getVehiculo() + "#" + alquileres[i].getDias();
+                datosAlquileres += alquileres[i].getCliente().getDni() + "#"
+                        + alquileres[i].getVehiculo().getMatricula() + "#" + sdf.format(alquileres[i].getFecha().getTime())
+                        + "#" + alquileres[i].getDias();
 
             }
 
@@ -858,6 +876,131 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
             escribirLn("\n********************ATENCION********************");
             escribirLn("Error en escritura de datos.");
             escribirLn("------------------------------------------------\n");
+        }
+
+    }
+
+    public static void leerDatos() {
+
+        //CLIENTES
+        String clientes_lineas = leerArchivo("clientes.txt");
+
+        if (!clientes_lineas.isEmpty()) {
+
+            String[] datosClientes = clientes_lineas.split("\n");
+
+            for (int i = 0; i < datosClientes.length; i++) {
+
+                String[] datos = datosClientes[i].split("#");
+
+                Cliente nuevoCliente = new Cliente(datos[0], datos[1], datos[2], datos[3], datos[4]);
+
+                clientes[i] = nuevoCliente;
+
+            }
+
+        }
+
+        //VEHICULOS
+        String vehiculos_lineas = leerArchivo("vehiculos.txt");
+
+        if (!vehiculos_lineas.isEmpty()) {
+
+            String[] datosVehiculos = vehiculos_lineas.split("\n");
+
+            for (int i = 0; i < datosVehiculos.length; i++) {
+
+                String[] datos = datosVehiculos[i].split("#");
+
+                Vehiculo vehiculo = null;
+
+                String matricula = datos[1];
+                String marca = datos[2];
+                String modelo = datos[3];
+                int cilindrada = Integer.parseInt(datos[4]);
+                boolean disponible = (datos[5].equalsIgnoreCase("true")) ? true : false;
+
+                switch (datos[0]) {
+
+                    case "Furgoneta":
+                        //int pma, int volumen, boolean refrigerado, Tamanio tamanio
+                        int pma = Integer.parseInt(datos[6]);
+                        int volumen = Integer.parseInt(datos[7]);
+                        boolean refrigerado = (datos[8].equalsIgnoreCase("true")) ? true : false;
+                        Tamanio tamanio = null;
+
+                        if (datos[9].equalsIgnoreCase("GRANDE")) {
+                            tamanio = Enumerados.Tamanio.GRANDE;
+                        } else if (datos[9].equalsIgnoreCase("MEDIANO")) {
+                            tamanio = Enumerados.Tamanio.MEDIANO;
+                        } else {
+                            tamanio = Enumerados.Tamanio.PEQUENIO;
+                        }
+
+                        vehiculos[i] = new Furgoneta(matricula, marca, modelo, cilindrada, pma, volumen, refrigerado, tamanio);
+                        vehiculos[i].setDisponible(disponible);
+                        break;
+
+                    case "Deportivo":
+
+                        //protected int numPuertas;
+                        // protected Combustible combustible;
+                        // private CajaCambios cambio;
+                        //  private boolean descapotable;
+                        int numPuertas = Integer.parseInt(datos[6]);
+                        Combustible combustible = null;
+
+                        if (datos[7].equalsIgnoreCase("GASOLINA")) {
+                            combustible = Enumerados.Combustible.GASOLINA;
+                        } else if (datos[7].equalsIgnoreCase("DIESEL")) {
+                            combustible = Enumerados.Combustible.DIESEL;
+                        } else if (datos[7].equalsIgnoreCase("HIBRIDO")) {
+                            combustible = Enumerados.Combustible.HIBRIDO;
+                        } else {
+                            combustible = Enumerados.Combustible.ELECTRICO;
+                        }
+
+                        CajaCambios cambio = null;
+
+                        if (datos[8].equalsIgnoreCase("AUTOMATICO")) {
+                            cambio = Enumerados.CajaCambios.AUTOMATICO;
+                        } else {
+                            cambio = Enumerados.CajaCambios.MANUAL;
+                        }
+
+                        boolean descapotable = (datos[9].equalsIgnoreCase("true")) ? true : false;
+
+                        vehiculos[i] = new Deportivo(matricula, marca, modelo, cilindrada, numPuertas, combustible, cambio, descapotable);
+                        vehiculos[i].setDisponible(disponible);
+                        break;
+
+                    case "Familiar":
+                        int numPuertasFami = Integer.parseInt(datos[6]);
+                        Combustible combustibleFami = null;
+
+                        if (datos[7].equalsIgnoreCase("GASOLINA")) {
+                            combustibleFami = Enumerados.Combustible.GASOLINA;
+                        } else if (datos[7].equalsIgnoreCase("DIESEL")) {
+                            combustibleFami = Enumerados.Combustible.DIESEL;
+                        } else if (datos[7].equalsIgnoreCase("HIBRIDO")) {
+                            combustibleFami = Enumerados.Combustible.HIBRIDO;
+                        } else {
+                            combustibleFami = Enumerados.Combustible.ELECTRICO;
+                        }
+
+                        //int numPlazas, boolean sillaBebe
+                        int numPlazas = Integer.parseInt(datos[8]);
+                        boolean sillaBebe = (datos[9].equalsIgnoreCase("true")) ? true : false;
+
+                        vehiculos[i] = new Familiar(matricula, marca, modelo, cilindrada, numPuertasFami, combustibleFami, numPlazas, sillaBebe);
+                        vehiculos[i].setDisponible(disponible);
+                        break;
+                }
+
+            }
+
+            System.out.println("Lectura completada!");
+
         }
 
     }

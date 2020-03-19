@@ -15,8 +15,8 @@ public class Furgoneta extends Mercancias {
     private boolean refrigerado;
     private Tamanio tamanio;
     
-    public Furgoneta(boolean refrigerado, Tamanio tamanio, int pma, int volumen, String matricula, String marca, String modelo, int cilindrada) {
-        super(pma, volumen, matricula, marca, modelo, cilindrada);
+    public Furgoneta(String matricula, String marca, String modelo, int cilindrada, int pma, int volumen, boolean refrigerado, Tamanio tamanio) {
+        super(matricula, marca, modelo, cilindrada, pma, volumen);
         this.refrigerado = refrigerado;
         this.tamanio = tamanio;
     }

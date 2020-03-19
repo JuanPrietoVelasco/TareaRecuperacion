@@ -12,13 +12,13 @@ package online6;
 public abstract class Mercancias extends Vehiculo{
     private int pma;
     private int volumen;
-    public Mercancias(int pma, int volumen,String matricula, String marca, String modelo, int cilindrada) {
+    public Mercancias(String matricula, String marca, String modelo, int cilindrada, int pma, int volumen) {
         super(matricula, marca, modelo, cilindrada);
         this.pma=pma;
         this.volumen=volumen;   
     }
     
-    public Mercancias(int pma, int volumen, Vehiculo vehiculo){
+    public Mercancias(Vehiculo vehiculo, int pma, int volumen){
         super(vehiculo.getMatricula(), vehiculo.getMarca(), vehiculo.getModelo(), vehiculo.getCilindrada()); //Corregido
         this.pma=pma;
         this.volumen=volumen;
