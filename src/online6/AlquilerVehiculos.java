@@ -5,13 +5,17 @@
  */
 package online6;
 
+import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import static online6.ES.*;
 import static online6.Utilidades.*;
 import static online6.Cliente.*;
 import static online6.Enumerados.*;
 import static online6.Mercancias.*;
+import static online6.Alquiler.*;
 
 /**
  *
@@ -26,7 +30,7 @@ public class AlquilerVehiculos {
     private static Cliente[] clientes = new Cliente[MAX_CLIENTES];
     private static Alquiler[] alquileres = new Alquiler[MAX_ALQUILERES];
     private static boolean esCorrecto;
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private static SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
     public AlquilerVehiculos() {
     }
@@ -357,7 +361,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
             escribirLn("1. Añadir cliente.\n2. Borrar cliente.\n3. Listar clientes.\n"
                     + "4. Añadir vehiculo.\n5. Borrar vehiculo.\n6. Listar vehiculos.\n"
                     + "7. Nuevo alquiler.\n8. Cerrar alquiler.\n9. Listar alquileres.\n"
-                    + "10. Guardar datos.\n11. Leer datos.\n12. Salir.");
+                    + "10. Guardar datos.\n11. Salir.");
 
             opcion = leerEntero("\nIntroduce opción: ");
 
@@ -393,16 +397,14 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                     guardarDatos();
                     break;
                 case 11:
-                    leerDatos();
-                    break;
-                case 12:
+                    confirmarGuardarDatos(); 
                     escribirLn("\nFin de programa");
                     escribirLn("------------------------------------------------\n");
                     escribirLn("------------------------------------------------\n");
                     break;
 
             }
-        } while (opcion != 12);
+        } while (opcion != 11);
     }
 
 //---------------------------------------METODOS OPCIONES MENU-------------------------------------//
@@ -411,6 +413,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
         String nie;
         String dni = leerCadena("\nIntroduce Dni/Nie de cliente: ").toUpperCase();
         boolean value = false;
+
         if (comprobarDni(dni)) {
             nie = dni;
             if (nie.substring(0, 1).equalsIgnoreCase("X")
@@ -478,64 +481,22 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
     }
 
     public static void caseListarClientes() {
-        //while (!esCorrecto) {
+
+        boolean vacio = true;
         for (int i = 0; i < clientes.length; i++) {
             if (clientes[i] != null) {
                 escribirLn(clientes[i].toString());
-                //}
-                //esCorrecto = true;
+                vacio = false;
+
             }
         }
-        escribirLn("------------------------------------------------\n");
-    }
-
-    /*public static void caseAnadirVehiculo() {
-
-        String matricula = (leerCadena("Introduce matrícula del vehículo: ")).toUpperCase();
-
-        if (comprobarMatricula(matricula)) {
-
-            String marca = (leerCadena("\nIntroduce marca del vehículo: ")).toUpperCase();
-            String modelo = (leerCadena("\nIntroduce modelo del vehículo: ")).toUpperCase();
-            int cilindrada = leerEntero("\nIntroduce cilindrada del vehículo: ");
-            int seleccion = leerEntero(1, 2, "\nSelecciona tipo de vehículo.\n1.Mercancias.\n2.Turismo.");
-
-            if (seleccion == 1) {
-
-                int pma = leerEntero("\nVas a registrar una furgoneta.\nIntroduce pma: ");
-                int volumen = leerEntero("\nIntroduce volumen: ");
-                boolean refrigerado = leerBoolean("\nVehículo refrigerado S/N");
-
-                int posicion = leerEntero(1, 3, "\nSelecciona un tamaño:\n1.Grande\n2.Mediano\n3.Pequeño");
-
-                Tamanio tamanio = Tamanio.values()[posicion - 1];
-
-                Furgoneta furgoneta = new Furgoneta(refrigerado, tamanio, pma, volumen, matricula, marca, modelo, cilindrada);
-
-            }
-            if (seleccion == 2) {
-                int numPuertas;
-
-            } else {
-                escribirLn("\nOpción incorrecta.");
-                escribirLn("------------------------------------------------\n");
-            }
-
-            //Seleccione Tipo de vehiculo
-            //1.Mercancias
-            //2.Turismo
-            //switch(opcion)
-            //case->1
-            //crearFurgoneta()
-            //------Vehiculo vehiculo = new Vehiculo(matricula, marca, modelo, cilindrada);
-            //anadirVehiculo(vehiculo);
-        } else {
+        if (vacio) {
             escribirLn("\n********************ATENCION********************");
-            escribirLn("Formato de matrícula incorrecto.");
+            escribirLn("No existen clientes.");
             escribirLn("------------------------------------------------\n");
         }
     }
-     */
+
     public static void caseBorrarVehiculo() {
 
         String matricula = (leerCadena("\nIntroduce matrícula del vehiculo a borrar: ")).toUpperCase();
@@ -551,11 +512,20 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
     }
 
     public static void caseListarVehiculos() {
+        boolean vacio = true;
+
         for (int i = 0; i < vehiculos.length; i++) {
             if (vehiculos[i] != null) {
                 escribirLn(vehiculos[i].toString());
+                vacio = false;
             }
 
+            if (vacio) {
+
+                escribirLn("\n********************ATENCION********************");
+                escribirLn("No existen vehículos.");
+                escribirLn("------------------------------------------------\n");
+            }
         }
 
     }
@@ -771,7 +741,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
         }
         if (vacio) {
             escribirLn("\n********************ATENCION********************");
-            escribirLn("No existen alquileres");
+            escribirLn("No existen alquileres.");
             escribirLn("------------------------------------------------\n");
         }
     }
@@ -818,7 +788,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
 
                     datosVehiculos += "Deportivo#" + aux.getMatricula() + "#" + aux.getMarca() + "#"
                             + aux.getModelo() + "#" + aux.getCilindrada() + "#" + aux.getDisponible() + "#"
-                            + +aux.getNumeroPuertas() + "#" + aux.getCombustible() + "#" + aux.getCambio() + "#" + aux.getDescapotable()+"\n";
+                            + +aux.getNumeroPuertas() + "#" + aux.getCombustible() + "#" + aux.getCambio() + "#" + aux.getDescapotable() + "\n";
 
                 }
 
@@ -828,7 +798,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
 
                     datosVehiculos += "Familiar#" + aux.getMatricula() + "#" + aux.getMarca() + "#"
                             + aux.getModelo() + "#" + aux.getCilindrada() + "#" + aux.getDisponible() + "#"
-                            + +aux.getNumeroPuertas() + "#" + aux.getCombustible() + "#" + aux.getNumPlazas() + "#" + aux.getSillaBebe()+"\n";
+                            + +aux.getNumeroPuertas() + "#" + aux.getCombustible() + "#" + aux.getNumPlazas() + "#" + aux.getSillaBebe() + "\n";
 
                 }
 
@@ -838,33 +808,37 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
 
                     datosVehiculos += "Furgoneta#" + aux.getMatricula() + "#" + aux.getMarca() + "#"
                             + aux.getModelo() + "#" + aux.getCilindrada() + "#" + aux.getDisponible() + "#"
-                            + +aux.getPma() + "#" + aux.getVolumen() + "#" + aux.getRefrigerado() + "#" + aux.getTamanio()+"\n";
+                            + +aux.getPma() + "#" + aux.getVolumen() + "#" + aux.getRefrigerado() + "#" + aux.getTamanio() + "\n";
 
                 }
 
             }
 
         }
-        
+
         if (escribirArchivo(ruta, datosVehiculos, true)) {
-                escribirLn("\nDatos de vehículos guardados correctamente.");
-                escribirLn("------------------------------------------------\n");
-            } else {
-                escribirLn("\n********************ATENCION********************");
-                escribirLn("Error en escritura de datos.");
-                escribirLn("------------------------------------------------\n");
+            escribirLn("\nDatos de vehículos guardados correctamente.");
+            escribirLn("------------------------------------------------\n");
+        } else {
+            escribirLn("\n********************ATENCION********************");
+            escribirLn("Error en escritura de datos.");
+            escribirLn("------------------------------------------------\n");
         }
 
         //Archivo para array alquileres
         ruta = "alquileres.txt";
         String datosAlquileres = "";
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
         for (int i = 0; i < alquileres.length; i++) {
 
             if (alquileres[i] != null) {
+
                 datosAlquileres += alquileres[i].getCliente().getDni() + "#"
-                        + alquileres[i].getVehiculo().getMatricula() + "#" + sdf.format(alquileres[i].getFecha().getTime())
-                        + "#" + alquileres[i].getDias();
+                        + alquileres[i].getVehiculo().getMatricula() + "#"
+                        + sdf.format(alquileres[i].getFecha().getTime())
+                        + "#" + alquileres[i].getDias() + "\n";
 
             }
 
@@ -882,12 +856,14 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
 
     public static void leerDatos() {
 
+        int tipoVehiculo = 0; //Esta variable la utilizaremos para posteriormente saber qué tipo de vehiculo almacenamos en el array de alquileres
+
         //CLIENTES
-        String clientes_lineas = leerArchivo("clientes.txt");
+        String clientesTxt = leerArchivo("clientes.txt");
 
-        if (!clientes_lineas.isEmpty()) {
+        if (!clientesTxt.isEmpty()) {
 
-            String[] datosClientes = clientes_lineas.split("\n");
+            String[] datosClientes = clientesTxt.split("\n");
 
             for (int i = 0; i < datosClientes.length; i++) {
 
@@ -902,18 +878,17 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
         }
 
         //VEHICULOS
-        String vehiculos_lineas = leerArchivo("vehiculos.txt");
+        String vehiculosTxt = leerArchivo("vehiculos.txt");
 
-        if (!vehiculos_lineas.isEmpty()) {
+        if (!vehiculosTxt.isEmpty()) {
 
-            String[] datosVehiculos = vehiculos_lineas.split("\n");
+            String[] datosVehiculos = vehiculosTxt.split("\n");
 
             for (int i = 0; i < datosVehiculos.length; i++) {
 
                 String[] datos = datosVehiculos[i].split("#");
 
-                Vehiculo vehiculo = null;
-
+                //Vehiculo vehiculo = null;
                 String matricula = datos[1];
                 String marca = datos[2];
                 String modelo = datos[3];
@@ -923,6 +898,7 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                 switch (datos[0]) {
 
                     case "Furgoneta":
+                        tipoVehiculo = 1;
                         //int pma, int volumen, boolean refrigerado, Tamanio tamanio
                         int pma = Integer.parseInt(datos[6]);
                         int volumen = Integer.parseInt(datos[7]);
@@ -937,11 +913,14 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                             tamanio = Enumerados.Tamanio.PEQUENIO;
                         }
 
-                        vehiculos[i] = new Furgoneta(matricula, marca, modelo, cilindrada, pma, volumen, refrigerado, tamanio);
+                        vehiculos[i] = new Furgoneta(matricula, marca, modelo, cilindrada,
+                                pma, volumen, refrigerado, tamanio);
                         vehiculos[i].setDisponible(disponible);
                         break;
 
                     case "Deportivo":
+
+                        tipoVehiculo = 2;
 
                         //protected int numPuertas;
                         // protected Combustible combustible;
@@ -970,11 +949,15 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
 
                         boolean descapotable = (datos[9].equalsIgnoreCase("true")) ? true : false;
 
-                        vehiculos[i] = new Deportivo(matricula, marca, modelo, cilindrada, numPuertas, combustible, cambio, descapotable);
+                        vehiculos[i] = new Deportivo(matricula, marca, modelo, cilindrada, numPuertas,
+                                combustible, cambio, descapotable);
                         vehiculos[i].setDisponible(disponible);
                         break;
 
                     case "Familiar":
+
+                        tipoVehiculo = 3;
+
                         int numPuertasFami = Integer.parseInt(datos[6]);
                         Combustible combustibleFami = null;
 
@@ -992,16 +975,68 @@ alquiler y lo añada al array de alquileres. Para ello se debe comprobar que el 
                         int numPlazas = Integer.parseInt(datos[8]);
                         boolean sillaBebe = (datos[9].equalsIgnoreCase("true")) ? true : false;
 
-                        vehiculos[i] = new Familiar(matricula, marca, modelo, cilindrada, numPuertasFami, combustibleFami, numPlazas, sillaBebe);
+                        vehiculos[i] = new Familiar(matricula, marca, modelo, cilindrada, numPuertasFami,
+                                combustibleFami, numPlazas, sillaBebe);
                         vehiculos[i].setDisponible(disponible);
                         break;
                 }
 
             }
 
-            System.out.println("Lectura completada!");
+        }
+        //ALQUILERES
 
+        String alquileresTxt = leerArchivo("alquileres.txt");
+
+        if (!alquileresTxt.isEmpty()) {
+
+            String[] datosAlquileres = alquileresTxt.split("\n");
+
+            for (int i = 0; i < datosAlquileres.length; i++) {
+
+                String[] datos = datosAlquileres[i].split("#");
+
+                String dni = datos[0];
+                String matricula = datos[1];
+                String fecha = datos[2];
+                int dias = Integer.parseInt(datos[3]);
+
+                Cliente nuevoCliente = clientes[buscarCliente(dni)];
+
+                Vehiculo nuevoVehiculo = vehiculos[buscarVehiculo(matricula)];
+
+                String[] datosFecha = fecha.split("[#/ :]+");
+
+                int day = Integer.parseInt(datosFecha[0]);
+                int month = Integer.parseInt(datosFecha[1]);
+                int year = Integer.parseInt(datosFecha[2]);
+                int hour = Integer.parseInt(datosFecha[3]);
+                int minute = Integer.parseInt(datosFecha[4]);
+
+                Calendar fechaAlquiler = new GregorianCalendar(day, month + 1, year, hour, minute);
+
+                Alquiler nuevoAlquiler = new Alquiler(nuevoCliente, nuevoVehiculo);
+                nuevoAlquiler.setFecha(fechaAlquiler);
+                nuevoAlquiler.setDias(dias);
+
+                alquileres[i] = nuevoAlquiler;
+
+                //¿fecha y días/disponible??    
+                //Vehiculo nuevoVehiculo = new Vehiculo(vehiculos[buscarVehiculo(matricula)]);
+                //Alquiler nuevoAlquiler = new Alquiler(nuevoCliente, nuevoVehiculo);
+                //alquileres[i] = nuevoAlquiler;
+            }
+
+        }
+        System.out.println("\nDatos cargados desde los archivos correctamente.");
+    }
+
+    public static void confirmarGuardarDatos() {
+
+        if (leerBoolean("¿Desea guardar cambios? S/N.")) {
+            guardarDatos();
         }
 
     }
+
 }

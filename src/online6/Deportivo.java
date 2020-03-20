@@ -52,7 +52,7 @@ public final class Deportivo extends Turismo {
         
         String descapotable = (this.descapotable) ? "SI" : "NO"; 
         
-        return super.toString() + " Tipo de cambio: " + cambio + " Descapotable: " + descapotable; 
+        return super.toString() + "\t\tTipo de cambio: " + cambio + "\t\tDescapotable: " + descapotable; 
     }
    
 }
