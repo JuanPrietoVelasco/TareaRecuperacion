@@ -28,8 +28,6 @@ public class AlquilerVehiculos {
     private static Vehiculo[] vehiculos = new Vehiculo[MAX_VEHICULOS];
     private static Cliente[] clientes = new Cliente[MAX_CLIENTES];
     private static Alquiler[] alquileres = new Alquiler[MAX_ALQUILERES];
-   
- 
 
     public AlquilerVehiculos() {
     }
@@ -51,7 +49,7 @@ public class AlquilerVehiculos {
         return c;
 
     }
-   
+
     public static int buscarCliente(String dni) {
         //Devuelve la posición del array de un DNI determinado.
 
@@ -140,7 +138,7 @@ lo devuelva si este existe o null en caso contrario.*/
                         if (posVehiculo != -1) {
 
                             vehiculo = vehiculos[posVehiculo];
-                            
+
                             if (!vehiculo.getDisponible()) {
 
                                 for (int i = 0; i < alquileres.length && !value; i++) {
@@ -150,8 +148,8 @@ lo devuelva si este existe o null en caso contrario.*/
 
                                             alquileres[i].cerrar(vehiculos);
                                             value = true;
-                                            
-                                            System.out.println("\nPrecio alquiler: "+alquileres[i].precioAlquiler()+"€ ");
+
+                                            System.out.println("\nPrecio alquiler: " + alquileres[i].precioAlquiler() + "€ ");
                                             break;
                                         }
                                     }
@@ -160,7 +158,7 @@ lo devuelva si este existe o null en caso contrario.*/
                                     escribirLn("\n********************ATENCION********************");
                                     escribirLn("No hay alquileres que contengan el cliente y el vehiculo indicado.");
                                     escribirLn("------------------------------------------------\n");
-                                    
+
                                 } else {
                                     escribirLn("\nAlquiler cerrado correctamente");
                                     escribirLn("------------------------------------------------\n");
@@ -201,7 +199,7 @@ lo devuelva si este existe o null en caso contrario.*/
             escribirLn("        Formato de Dni/Nie incorrecto.");
             escribirLn("------------------------------------------------\n");
         }
-    
+
     }
 
     public static void leerDatos() {
@@ -362,8 +360,7 @@ lo devuelva si este existe o null en caso contrario.*/
                 int year = Integer.parseInt(datosFecha[2]);
                 int hour = Integer.parseInt(datosFecha[3]);
                 int minute = Integer.parseInt(datosFecha[4]);
-                
-                
+
                 Calendar fechaAlquiler = new GregorianCalendar(year, month - 1, day, hour, minute);
 
                 Alquiler nuevoAlquiler = new Alquiler(nuevoCliente, nuevoVehiculo);
@@ -377,7 +374,10 @@ lo devuelva si este existe o null en caso contrario.*/
         }
         System.out.println("\nDatos cargados desde los archivos correctamente.");
     }
-
+    
+    //
+    //
+//
     //---------------------------------------MAIN------------------------------------------------------//  
     public static void main(String[] args) {
 
@@ -451,7 +451,6 @@ lo devuelva si este existe o null en caso contrario.*/
                     escribirLn("          Elija una opción del menu.");
                     escribirLn("------------------------------------------------");
                     break;
-                    
 
             }
 
@@ -465,7 +464,6 @@ lo devuelva si este existe o null en caso contrario.*/
 //
 //    
 
-    
     public static void anadirCliente(Cliente c) {
         /*Crea un método anadirCliente que añada un cliente al array de clientes si cabe
 y si no existe ningún otro con el mismo DNI o muestre un mensaje con el error que se ha producido.*/
@@ -506,12 +504,10 @@ y si no existe ningún otro con el mismo DNI o muestre un mensaje con el error q
             escribirLn("------------------------------------------------\n");
         }
     }
-    
-    
+
     public static void caseAnadirCliente() {
 
         //Utilizamos dniAux parahacer las comprobaciones en el caso de que se trate de un NIE
-        
         String dniAux;
         String dni = leerCadena("\nIntroduce Dni/Nie de cliente: ").toUpperCase();
         boolean value = false;
@@ -562,13 +558,8 @@ y si no existe ningún otro con el mismo DNI o muestre un mensaje con el error q
         }
 
     }
-    
-    
-    
-    
-    
-    
-     public static void borrarCliente(String dni) {
+
+    public static void borrarCliente(String dni) {
         /*Crea un método borrarCliente que elimine un cliente, dado su DNI.*/
 
         boolean eliminado = false;
@@ -613,8 +604,6 @@ y si no existe ningún otro con el mismo DNI o muestre un mensaje con el error q
         }
     }
 
-    
-    
     public static void caseListarClientes() {
 
         boolean vacio = true;
@@ -632,7 +621,6 @@ y si no existe ningún otro con el mismo DNI o muestre un mensaje con el error q
         }
     }
 
-    
     public static void anadirVehiculo() {
         /*Crea un método anadirVehiculo que añada un coche al array de vehiculos si
 cabe y no existe ningún otro con la misma matrícula o muestre un mensaje con el
@@ -756,10 +744,8 @@ error que se ha producido.*/
             escribirLn("------------------------------------------------\n");
         }
 
-    }   
-      
-    
-    
+    }
+
     public static void borrarVehiculo(String m) {
         /* Crea un método borrarVehiculo que borre un vehiculo, dada su matrícula, del
     array de vehiculos. */
@@ -781,8 +767,7 @@ error que se ha producido.*/
             escribirLn("------------------------------------------------\n");
         }
     }
-    
-    
+
     public static void caseBorrarVehiculo() {
 
         String matricula = (leerCadena("\nIntroduce matrícula del vehiculo a borrar: ")).toUpperCase();
@@ -797,7 +782,6 @@ error que se ha producido.*/
         }
     }
 
-    
     public static void caseListarVehiculos() {
         boolean vacio = true;
 
@@ -824,8 +808,7 @@ error que se ha producido.*/
         int posCliente;
         int posVehiculo;
         boolean value = false;
-        
-        
+
         dni = (leerCadena("\nIntroduce Dni/Nie del cliente: ")).toUpperCase();
         dniAux = dni;
 
