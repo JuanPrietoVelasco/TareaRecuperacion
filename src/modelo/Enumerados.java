@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package online7;
+package modelo;
 
 /**
  *
@@ -11,10 +11,10 @@ package online7;
  */
 public class Enumerados {
     
-    public enum Combustible{
+    public enum TipoCombustible{
         GASOLINA, DIESEL, HIBRIDO, ELECTRICO;
         
-        Combustible(){}
+        TipoCombustible(){}
     }
     
     public enum CajaCambios{

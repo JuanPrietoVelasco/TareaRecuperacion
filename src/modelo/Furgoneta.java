@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package online7;
+package modelo;
 
-import online7.Enumerados.Tamanio;
+import modelo.Enumerados.Tamanio;
 
 /**
  *

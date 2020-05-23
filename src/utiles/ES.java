@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package online7;
+package utiles;
 
 import java.io.*;
 import java.util.Scanner;
@@ -332,6 +332,7 @@ public class ES {
                 }
             } catch (Exception e) {
                 correcto = false;
+                escribirLn("Introduzca un valor superior a " + min);
             }
         } while (!correcto);
         return (num);
