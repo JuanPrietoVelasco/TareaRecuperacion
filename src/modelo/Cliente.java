@@ -80,7 +80,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        String alta = (this.alta) ? "Si" : "No";
+        String alta = (this.alta) ? "SI" : "NO";
 
         return "\nAlta: " + alta + "\t\tEdad: " + this.edad + "\t\tDni/Nie: " + this.dni + "\t\tEmpresa: " + this.nombreEmpresa + "\t\tNombre: " + this.nombre 
                 + "\t\tDirección: " + this.direccion + "\nLocalidad: " + this.localidad + "\t\tCódigo postal: " + this.codigoPostal;

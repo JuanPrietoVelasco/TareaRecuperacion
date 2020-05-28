@@ -34,9 +34,7 @@ public class Alquiler {
     días (si se devuelve el mismo día contará como 1 día), y ponga el turismo como disponible.*/
         this.diasTranscurridos = calculoDiasTranscurrridos(Calendar.getInstance());
         this.vehiculo.setDisponible(true);
-        //setDiasTranscurridos(diasTranscurridos);
-        //this.diasTranscurridos = calculoDiasTranscurrridos(Calendar.getInstance());
-        
+
         String diasAlq = (diasTranscurridos == 1) ? " día." : " días.";
         escribirLn("\n  El precio del alquiler es " + precioAlquiler() + "€ por " + diasTranscurridos + diasAlq);
 
@@ -94,7 +92,7 @@ public class Alquiler {
         String estado = (diasTranscurridos == 0) ? "ABIERTO." : "CERRADO.";
         String diasAlq = (diasTranscurridos == 1) ? " día." : " días.";
         
-        return "\nCliente: " + cliente.toString() + "\n" + "Vehículo: \n" + vehiculo.toString() 
+        return "\nCliente: " + cliente.toString() + "\n" + "\nVehículo: \n" + vehiculo.toString() 
                 + "\n\nInicio Alquiler: " + FECHA_FORMATO.format(fecha.getTime()) + "\t\tDuración alquiler: "
                 + this.diasTranscurridos + diasAlq + "\t\tEstado de alquiler: " + estado;
     }

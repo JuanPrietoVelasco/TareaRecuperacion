@@ -16,7 +16,6 @@ import modelo.*;
  */
 public class Utilidades {
 
-    static boolean mMatricula;
 
     public Utilidades() {
     }
@@ -26,7 +25,6 @@ public class Utilidades {
         
         Pattern p = Pattern.compile("[0-9]{4}[BCDFGHIJKLMNPQRSTUVWXYZ]{3}");
         Matcher m = p.matcher(matricula);
-        mMatricula = m.matches();
         return m.matches();
     }
 
@@ -86,6 +84,18 @@ public class Utilidades {
         dni += calcularLetraDni(dniAux);
         //el dni/nie ya está comprobado y con su letra
         return dni;
+    }
+    
+    public static boolean arrayVacio(Object[] array) {
+        //Saber si el array está vacio.
+        boolean vacio = true;
+
+        for (int i = 0; i < array.length && vacio == true; i++) {
+            if (array[i] != null) {
+                vacio = false;
+            }
+        }
+        return vacio;
     }
 
     
