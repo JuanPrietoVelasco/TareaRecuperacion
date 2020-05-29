@@ -34,7 +34,7 @@ public class Cliente {
     public Cliente(Cliente cliente) {
         this.alta = cliente.alta;
         this.dni = cliente.dni;
-        this.nombreEmpresa = nombreEmpresa;
+        this.nombreEmpresa = cliente.nombreEmpresa;
         this.nombre = cliente.nombre;
         this.direccion = cliente.direccion;
         this.localidad = cliente.localidad;

@@ -1,13 +1,9 @@
 package modelo;
 
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import utiles.ES.*;
-import modelo.*;
-import utiles.ES;
 import static utiles.ES.*;
-//import static aplicacion.AlquilerVehiculos.getVehiculo;
 
 public class Alquiler {
 

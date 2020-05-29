@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import modelo.Enumerados.TipoCombustible;
@@ -14,7 +9,7 @@ import modelo.Enumerados.TipoCombustible;
 public final class Monovolumen extends Turismo {
 
     private int numeroPlazas;
-    private boolean sillaBebe;  
+    private boolean sillaBebe;
 
     public Monovolumen(String matricula, String marca, String modelo, int cilindrada,
             int numPuertas, TipoCombustible combustible, int numeroPlazas, boolean sillaBebe) {
@@ -23,30 +18,26 @@ public final class Monovolumen extends Turismo {
         this.sillaBebe = sillaBebe;
     }
 
-    
-    public int getNumeroPuertas() {
-        return super.getNumPuertas();
+    public int getNumPuertas() {
+        return numeroPuertas;
     }
-   
-    @Override
+
     public TipoCombustible getCombustible() {
-        return super.getCombustible();
+        return combustible;
     }
     
     public void setSillaBebe(boolean sillaBebe) {
         this.sillaBebe = sillaBebe;
     }
-    
+
     public boolean getSillaBebe() {
 
         return sillaBebe;
     }
-    
+
     public int getNumPlazas() {
         return numeroPlazas;
     }
-
-        
 
     @Override
     public String toString() {

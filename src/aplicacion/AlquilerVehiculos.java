@@ -10,15 +10,6 @@ import static utiles.ES.*;
 import static utiles.Utilidades.*;
 import static modelo.Enumerados.*;
 
-//De esta secuencia de ejecución se deduce lo siguiente:
-// Que duplicas información. Ya tienes los clientes y los vehículos es sus listas o arrays, cuando se lo pases al objeto alquiler no hace falta que le pases una copia. Le pasas la referencia.
-//Como se puede solucionar eso, pues una vez que el USUARIO ha introducido el DNI y la matrícula, compruebas que son correctas.
-//Lo siguiente es averiguar si el cliente y el vehículo existen en nuestras listas.
-//Ejemplo:
-//cliente = getCliente( sDni);
-//vehiculo = getVehiculo( mat) ;
-//if( cliente != null && vehiculo!= null)
-//alquiler = new Alquiler( cliente, vehiculo)) ;
 /**
  * @author juan
  */
@@ -32,59 +23,11 @@ public class AlquilerVehiculos {
     private static Alquiler[] alquileres = new Alquiler[ALQUILERES_MAX];
     private static boolean esValido;
 
-    public AlquilerVehiculos() {
-    }
-
-    public static Cliente getCliente(String dni) {
-
-        Cliente c = null;
-
-        for (int i = 0; i < clientes.length && c == null; i++) {
-            //si la posicion array no es nula y coincide el dni existente lo devuelve
-            if (clientes[i] != null && clientes[i].getDni().equalsIgnoreCase(dni)) {
-                c = clientes[i];
-
-            }
-        }
-
-        return c;
-
-    }
-
-    public static Vehiculo getVehiculo(String matricula) {
-        /*Crea un método getVehiculo que se le pase la matrícula de un turismo y nos
-        lo devuelva si este existe o null en caso contrario.*/
-
-        Vehiculo v = null;
-
-        for (int i = 0; i < vehiculos.length; i++) {
-            //si la posicion array no es nula y coincide el dni existente lo devuelve
-            if (vehiculos[i] != null && vehiculos[i].getMatricula().equalsIgnoreCase(matricula)) {
-                v = vehiculos[i];
-                break;
-            }
-        }
-        return v;
-    }
-
-//---------------------------------------MAIN------------------------------------------------------//  
     public static void main(String[] args) {
 
         //Cargamos los datos desde los archivos.
         leerDatos();
-        //edad, String dni, String nombre, String direccion, String localidad, String codigo
-        //Cliente cliente1 = new Cliente(25, "71889272N", "TRABE", "Juan", "Calle la Paz 11", "Raices", "33405");
-//        Cliente cliente2 = new Cliente(25, "14800433W", "Juan", "Calle la Paz 11", "Raices", "33405");
-//        //String matricula, String marca, String modelo, int cilindrada,
-//        //  int numPuertas, TipoCombustible combustible, int numeroPlazas, boolean sillaBebe) 
-        //Vehiculo vehiculo1 = new Monovolumen("3661clt", "Nissan", "Almera", 2100, 5, TipoCombustible.ELECTRICO, 5, true);
-//
-        //clientes[0] = cliente1;
-//        clientes[1] = cliente2;
-//        
-//        clientes[0].setAlta(false);4
 
-        //vehiculos[0] = vehiculo1;
         int opcion = 0;
         Scanner sc = new Scanner(System.in);
         boolean guardar = false;
@@ -120,23 +63,7 @@ public class AlquilerVehiculos {
                     guardar = true;
                     break;
                 case 5:
-                    esValido = false;
-
-                    while (!esValido) {
-                        String matricula = leerCadena("\nIntroduce matrícula de vehículo.").toUpperCase();
-
-                        if (comprobarMatricula(matricula)) {
-
-                            borrarVehiculo(matricula);
-                            esValido = true;
-
-                        } else {
-                            escribirLn("\n********************ATENCION********************");
-                            escribirLn("         Formato de matrícula incorrecto.");
-                            escribirLn("          Formato correcto tipo 1234BCD.");
-                            escribirLn("------------------------------------------------\n");
-                        }
-                    }
+                    llamarBorrarVehiculo();
                     guardar = true;
                     break;
                 case 6:
@@ -183,7 +110,42 @@ public class AlquilerVehiculos {
         } while (opcion != 11);
     }
 
-//---------------------------------------METODOS OPCIONES MENU-------------------------------------//  
+    public AlquilerVehiculos() {
+        //lo pide el ejercicio¿se usa?
+    }
+
+    public static Cliente getCliente(String dni) {
+
+        Cliente c = null;
+
+        for (int i = 0; i < clientes.length && c == null; i++) {
+            //si la posicion array no es nula y coincide el dni existente lo devuelve
+            if (clientes[i] != null && clientes[i].getDni().equalsIgnoreCase(dni)) {
+                c = clientes[i];
+
+            }
+        }
+
+        return c;
+
+    }
+
+    public static Vehiculo getVehiculo(String matricula) {
+        /*Crea un método getVehiculo que se le pase la matrícula de un turismo y nos
+        lo devuelva si este existe o null en caso contrario.*/
+
+        Vehiculo v = null;
+
+        for (int i = 0; i < vehiculos.length; i++) {
+            //si la posicion array no es nula y coincide el dni existente lo devuelve
+            if (vehiculos[i] != null && vehiculos[i].getMatricula().equalsIgnoreCase(matricula)) {
+                v = vehiculos[i];
+                break;
+            }
+        }
+        return v;
+    }
+
     public static void anadirCliente() {
 
         String dni;
@@ -223,13 +185,12 @@ public class AlquilerVehiculos {
 
                 } while (!value);
 
-                //Utilizamos dniAux para hacer las comprobaciones en el caso de que se trate de un NIE
-                //dni = procesarDni(dni);
                 if (getCliente(dni) != null) {
+                    //buscamos el cliente en el array
                     Cliente cliente = getCliente(dni);
 
                     if (!cliente.getAlta()) {
-
+                        //Cliente de baja
                         boolean opcion = leerBoolean("Cliente existente y dado de baja.¿Volver a dar de alta? S/N.");
 
                         if (opcion) {
@@ -272,8 +233,6 @@ public class AlquilerVehiculos {
                             clientes[pos] = c;
                             escribirLn(c.toString());
 
-                            //Ordenamos el array una vez introducido un nuevo cliente.
-                            //Collections.sort(clientes);
                             escribir("\n       Cliente añadido correctamente.");
                             escribirLn("------------------------------------------------\n");
 
@@ -293,7 +252,7 @@ public class AlquilerVehiculos {
     }
 
     public static void llamarBorrarCliente() {
-        /*Metodo creado para inicializar dni y así poder pasarlo por parámetro
+        /*Metodo creado para declarar e inicializar dni y así poder pasarlo por parámetro
         a borrarCliente(String dni)*/
 
         esValido = false;
@@ -307,13 +266,11 @@ public class AlquilerVehiculos {
                 String dni = leerCadena("\nIntroduce Dni/Nie de cliente sin la letra final.").toUpperCase();
 
                 if (comprobarDni(dni)) {
-
                     dni = procesarDni(dni);
 
-                    System.out.println("va" + dni);
                     borrarCliente(dni);
-                    esValido = true;
 
+                    esValido = true;
                 } else {
                     escribirLn("\n********************ATENCION********************");
                     escribirLn("         Formato de dni/nie incorrecto.");
@@ -328,8 +285,9 @@ public class AlquilerVehiculos {
 
     public static void borrarCliente(String dni) {
         int posCli = -1;
-        boolean value = false;
+        boolean stop = false;
         boolean tieneAlq = false;
+        boolean encontrado = false;
         Cliente c;
 
         c = getCliente(dni);
@@ -344,12 +302,14 @@ public class AlquilerVehiculos {
             }
             for (int i = 0; i < alquileres.length && !tieneAlq; i++) {
                 //vemos si esta en algun alquiler
-                if (alquileres != null && (alquileres[i].getCliente().getDni()).equalsIgnoreCase(dni)) {
+                if (alquileres[i] != null && (alquileres[i].getCliente().getDni()).equalsIgnoreCase(dni)) {
                     tieneAlq = true;
                 }
             }
+
             if (!c.getAlta()) {
-                boolean opcion = leerBoolean("Cliente dado de baja.¿Volver a dar de alta? S/N.");
+                //está de baja
+                boolean opcion = leerBoolean("\nCliente dado de baja.¿Volver a dar de alta? S/N.");
 
                 if (opcion) {
 
@@ -358,13 +318,12 @@ public class AlquilerVehiculos {
                     escribirLn("\n        Cliente dado de alta nuevamente.");
                     escribirLn("------------------------------------------------\n");
 
-
                     if (tieneAlq) {
                         for (int i = 0; i < alquileres.length; i++) {
-                            //seteamos todos los alquileres que tiene
+                            //seteamos todos los alquileres que tiene registrados 
                             if (alquileres[i] != null && (alquileres[i].getCliente().getDni()).equalsIgnoreCase(dni)) {
                                 alquileres[i].getCliente().setAlta(true);
-                                //el cliente tiene o tuvo algún alquiler
+
                             }
                         }
                     }
@@ -375,18 +334,26 @@ public class AlquilerVehiculos {
                     //el cliente tiene algún alquiler abierto y/o cerrado
                     for (int i = 0; i < alquileres.length; i++) {
 
-                        if (alquileres[i] != null && !value && ((alquileres[i].getCliente().getDni()).equalsIgnoreCase(dni)) && (alquileres[i].getDiasTranscurridos() == 0)) {
-                            value = true;
+                        if (alquileres[i] != null && !stop && ((alquileres[i].getCliente().getDni()).equalsIgnoreCase(dni)) && (alquileres[i].getDiasTranscurridos() == 0)) {
+                            //tiene alguno abierto
+                            stop = true;
                             escribirLn("\n********************ATENCION********************");
                             escribirLn("  El cliente tiene un alquiler activo. Debe cerrar\n"
                                     + "         primero el alquiler asociado.");
                             escribirLn("------------------------------------------------\n");
                         }
                     }
-                    for (int i = 0; i < alquileres.length && !value; i++) {
-                        //Si no tiene alquileres abieros seteamos los cerrados
+                    for (int i = 0; i < alquileres.length && !stop; i++) {
+                        //Si no tiene alquileres abiertos(stop) seteamos los cerrados
                         if (alquileres[i] != null && ((alquileres[i].getCliente().getDni()).equalsIgnoreCase(dni)) && (alquileres[i].getDiasTranscurridos() > 0)) {
                             alquileres[i].getCliente().setAlta(false);
+
+                            if (!encontrado) {
+                                //boolean para solo imprimirlo una vez aunque tenga varios alquileres cerrados
+                                escribirLn("\n        Cliente dado de baja.");
+                                escribirLn("------------------------------------------------\n");
+                            }
+                            encontrado = true;
                         }
                     }
                 } else {
@@ -396,12 +363,12 @@ public class AlquilerVehiculos {
                 }
 
             }
+            clientes[posCli] = c;
         } else {
             escribirLn("\n********************ATENCION********************");
             escribirLn("             Dni/nie no registrado.");
             escribirLn("------------------------------------------------\n");
         }
-        clientes[posCli] = c;
     }
 
     public static void listarClientes() {
@@ -554,129 +521,116 @@ public class AlquilerVehiculos {
         }
     }
 
+    public static void llamarBorrarVehiculo() {
+        /*Metodo creado para declarar e inicializar matrícula y así poder pasarlo por parámetro
+        a borrarVehiculo(String matricula)*/
+
+        esValido = false;
+        if (arrayVacio(vehiculos)) {
+            escribirLn("\n********************ATENCION********************");
+            escribirLn("          No existen vehiculos registrados.");
+            escribirLn("------------------------------------------------\n");
+
+        } else {
+            while (!esValido) {
+                String matricula = leerCadena("\nIntroduce matrícula de vehículo.").toUpperCase();
+
+                if (comprobarMatricula(matricula)) {
+
+                    borrarVehiculo(matricula);
+
+                    esValido = true;
+                } else {
+                    escribirLn("\n********************ATENCION********************");
+                    escribirLn("         Formato de matrícula incorrecto.");
+                    escribirLn("             Formato tipo: 1234BCD");
+                    escribirLn("------------------------------------------------\n");
+                }
+            }
+        }
+
+    }
+
     public static void borrarVehiculo(String matricula) {
 
         boolean value = false;
-        int pos = -1;
+        boolean tieneAlq = false;
+        int posVehi = -1;
         Vehiculo v;
 
-        if (arrayVacio(vehiculos)) {
-            escribirLn("\n********************ATENCION********************");
-            escribirLn("       No existen vehículos registrados.");
-            escribirLn("------------------------------------------------\n");
-        } else {
+        v = getVehiculo(matricula);
 
-            v = getVehiculo(matricula);
+        if (v != null) {
 
-            if (v != null) {
+            for (int i = 0; i < vehiculos.length && posVehi == -1; i++) {
+                //localizamos vehiculo en el array
+                if (vehiculos[i] == v) {
+                    posVehi = i;
+                }
+            }
+            for (int i = 0; i < alquileres.length && !tieneAlq; i++) {
+                //vemos si esta en algun alquiler
+                if (alquileres[i] != null && (alquileres[i].getVehiculo().getMatricula()).equalsIgnoreCase(matricula)) {
+                    tieneAlq = true;
+                }
+            }
 
-                if (!v.getAlta()) {
+            if (!v.getAlta()) {
 
-                    boolean opcion = leerBoolean("Vehículo dado de baja.¿Volver a dar de alta? S/N.");
+                boolean opcion = leerBoolean("Vehículo dado de baja.¿Volver a dar de alta? S/N.");
 
-                    if (opcion) {
-                        v.setAlta(true);
-                        v.setDisponible(true);
+                if (opcion) {
 
+                    v.setAlta(true);
+
+                    escribirLn("\n        Vehículo dado de alta nuevamente.");
+                    escribirLn("------------------------------------------------\n");
+
+                    if (tieneAlq) {
                         for (int i = 0; i < alquileres.length; i++) {
-
-                            if (alquileres[i] != null && alquileres[i].getVehiculo().getMatricula().equalsIgnoreCase(matricula)) {
+                            //seteamos todos los alquileres que tiene
+                            if (alquileres[i] != null && (alquileres[i].getVehiculo().getMatricula()).equalsIgnoreCase(matricula)) {
                                 alquileres[i].getVehiculo().setAlta(true);
-                                alquileres[i].getVehiculo().setDisponible(true);
+                                //el cliente tiene o tuvo algún alquiler
                             }
-
                         }
-
-                        for (int i = 0; i < vehiculos.length; i++) {
-                            if (vehiculos[i] != null && vehiculos[i].getMatricula().equalsIgnoreCase(matricula)) {
-                                vehiculos[i] = v;
-                            }
-
-                        }
-
-                        escribirLn("\n        Vehículo dado de alta nuevamente.");
-                        escribirLn("------------------------------------------------\n");
                     }
+                }
+            } else {
+                if (tieneAlq == true) {
+                    //el cliente tiene algún alquiler abierto y/o cerrado
+                    for (int i = 0; i < alquileres.length && !value; i++) {
 
-                } else {
-
-                    v.setAlta(false);
-                    v.setDisponible(false);
-
-                    esValido = false;
-
-                    //Comprobamos si el vehículo existe en el array de alquileres para setear la opcion elegida
-                    for (int i = 0; i < alquileres.length && !esValido; i++) {
-                        if (alquileres[i] != null && alquileres[i].getVehiculo() == v && alquileres[i].getDiasTranscurridos() == 0) {
-
-                            esValido = true;
+                        if (alquileres[i] != null && !value && ((alquileres[i].getVehiculo().getMatricula()).equalsIgnoreCase(matricula)) && (alquileres[i].getDiasTranscurridos() == 0)) {
+                            value = true;
                             escribirLn("\n********************ATENCION********************");
                             escribirLn("  El vehículo tiene un alquiler activo. Debe cerrar\n"
                                     + "         primero el alquiler asociado.");
                             escribirLn("------------------------------------------------\n");
-
-                        } else if (alquileres[i] != null && alquileres[i].getVehiculo() == v && alquileres[i].getDiasTranscurridos() != 0) {
+                        }
+                    }
+                    for (int i = 0; i < alquileres.length && !value; i++) {
+                        //Si no tiene alquileres abiertos seteamos los cerrados
+                        if (alquileres[i] != null && ((alquileres[i].getVehiculo().getMatricula()).equalsIgnoreCase(matricula)) && (alquileres[i].getDiasTranscurridos() > 0)) {
                             alquileres[i].getVehiculo().setAlta(false);
-                            alquileres[i].getVehiculo().setDisponible(false);
-
-                        }
-
-                    }
-
-                    if (!esValido) {
-                        for (int i = 0; i < vehiculos.length; i++) {
-                            if (vehiculos[i] != null && vehiculos[i].getMatricula().equalsIgnoreCase(matricula)) {
-                                vehiculos[i] = v;
-                            }
-
-                        }
-
-                        escribirLn("\n********************ATENCION********************");
-                        escribirLn("  El vehículo ha sido dado de baja correctamente\n");
-                        escribirLn("------------------------------------------------\n");
-
-                    }
-
-                }
-
-                /*if (v.getAlta() && v.getDisponible()) {
-                        v.setAlta(false);
-                        v.setDisponible(false);
-
-                        if (pos != -1) {
-                            alquileres[pos].getVehiculo().setAlta(false);
-                            alquileres[pos].getVehiculo().setDisponible(false);
-                        }
-                        escribirLn("\n      Vehículo dado de baja correctamente.");
-                        escribirLn("------------------------------------------------\n");
-
-                    } else if (v.getAlta() && !v.getDisponible()) {
-                        escribirLn("\n********************ATENCION********************");
-                        escribirLn("  El vehículo tiene un alquiler activo. Debe cerrar\n"
-                                + "         primero el alquiler asociado.");
-                        escribirLn("------------------------------------------------\n");
-
-                    } else if (!v.getAlta()) {
-                        boolean opcion = leerBoolean("Vehículo dado de baja.¿Volver a dar de alta? S/N.");
-
-                        if (opcion) {
-                            v.setAlta(true);
-                            v.setDisponible(true);
-
-                            if (pos != -1) {
-                                alquileres[pos].getVehiculo().setAlta(true);
-                                alquileres[pos].getVehiculo().setDisponible(true);
-                            }
-                            escribirLn("\n        Vehículo dado de alta nuevamente.");
+                            escribirLn("\n        Vehículo dado de baja.");
                             escribirLn("------------------------------------------------\n");
                         }
-                    }*/
-            } else {
-                escribirLn("\n********************ATENCION********************");
-                escribirLn("             Matrícula no registrada.");
-                escribirLn("------------------------------------------------\n");
+                    }
+                } else {
+                    v.setAlta(false);
+                    escribirLn("\n        Vehículo dado de baja.");
+                    escribirLn("------------------------------------------------\n");
+                }
+
             }
+        } else {
+            escribirLn("\n********************ATENCION********************");
+            escribirLn("             Matrícula no registrada.");
+            escribirLn("------------------------------------------------\n");
         }
+        vehiculos[posVehi] = v;
+
     }
 
     public static void listarVehiculos() {
@@ -727,9 +681,6 @@ public class AlquilerVehiculos {
         String matricula;
         boolean mat_ok = false;
         boolean dni_ok = false;
-
-        System.out.println(arrayVacio(clientes));
-        System.out.println(arrayVacio(vehiculos));
 
         if (arrayVacio(clientes) && arrayVacio(vehiculos)) {
             escribirLn("\n********************ATENCION********************");
@@ -845,20 +796,27 @@ public class AlquilerVehiculos {
         /*Metodo creado para buscar cliente y vehículo  a partir de dni y matrícula y así poder pasarlos por parámetro
         a cerrarAlquiler(Cliente c, Vehiculo v)*/
 
-        String dni_ = leerCadena("Introduce dni/nie del cliente sin letra final.");
+        String dni_ = (leerCadena("Introduce dni/nie del cliente sin letra final.")).toUpperCase();
         if (comprobarDni(dni_)) {
             dni_ = procesarDni(dni_);
             Cliente c = getCliente(dni_);
             if (c != null) {
-                Vehiculo v = getVehiculo(leerCadena("Introduzca matrícula del vehiculo."));
-
-                if (v != null) {
-                    cerrarAlquiler(c, v);
+                if (!c.getAlta()) {
+                    escribirLn(" ********************ATENCION********************");
+                    escribirLn("Cliente dado de baja. No puede realizar el alquiler.");
+                    escribirLn(" ------------------------------------------------\n");
 
                 } else {
-                    escribirLn("********************ATENCION********************");
-                    escribirLn("    No existe  vehículo con esa matrícula.");
-                    escribirLn("------------------------------------------------\n");
+                    Vehiculo v = getVehiculo(leerCadena("Introduzca matrícula del vehiculo."));
+                    if (v != null) {
+
+                        cerrarAlquiler(c, v);
+
+                    } else {
+                        escribirLn("********************ATENCION********************");
+                        escribirLn("    No existe  vehículo con esa matrícula.");
+                        escribirLn("------------------------------------------------\n");
+                    }
                 }
             } else {
                 escribirLn("********************ATENCION********************");
@@ -884,14 +842,6 @@ public class AlquilerVehiculos {
                     encontrado = true;
                     escribirLn("\n         Alquiler cerrado correctamente.");
                     escribirLn("------------------------------------------------\n");
-
-                    for (int j = 0; j < vehiculos.length; j++) {
-                        if (vehiculos[i] == v) {
-
-                            //v.setDisponible(true);
-                            vehiculos[i] = v;
-                        }
-                    }
                 }
             }
         }
@@ -903,20 +853,42 @@ public class AlquilerVehiculos {
     }
 
     public static void listarAlquileres() {
-        boolean vacio = true;
+
+        int pos = -1;
+
+        if (arrayVacio(alquileres)) {
+            escribirLn("\n********************ATENCION********************");
+            escribirLn("            No existen alquileres.");
+            escribirLn("------------------------------------------------\n");
+        }
 
         for (int i = 0; i < alquileres.length; i++) {
+            //recorro alquileres imprimiendo los alquileres abiertos
             if (alquileres[i] != null) {
-                escribirLn("\nLISTADO DE ALQUILERES.");
-                escribirLn(alquileres[i].toString());
-                vacio = false;
+                if (alquileres[i].getDiasTranscurridos() == 0) {
+                    escribirLn(alquileres[i].toString());
+                    escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");
+                }
+                if (alquileres[i].getDiasTranscurridos() > 0) {
+                    //Miro si hay alquileres cerrados
+                    pos = i;
+                }
             }
-
         }
-        if (vacio) {
-            escribirLn("\n********************ATENCION********************");
-            escribirLn("       No existen alquileres registrados.");
-            escribirLn("------------------------------------------------\n");
+
+        if (pos != -1) {
+            boolean opcion = leerBoolean("Existen alquileres cerrados. ¿Quieres listarlos? S/N.");
+
+            if (opcion) {
+                for (int i = 0; i < alquileres.length; i++) {
+                    if (alquileres[i] != null && alquileres[i].getDiasTranscurridos() > 0) {
+                        //imprimo alquileres cerrados
+
+                        escribirLn(alquileres[i].toString());
+                        escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");
+                    }
+                }
+            }
         }
     }
 
@@ -960,7 +932,7 @@ public class AlquilerVehiculos {
 
                     datosVehiculos += "Monovolumen#" + aux.getFechaEntrada() + "#" + aux.getAlta() + "#" + aux.getDisponible() + "#" + aux.getMatricula() + "#" + aux.getMarca() + "#"
                             + aux.getModelo() + "#" + aux.getCilindrada() + "#"
-                            + aux.getNumeroPuertas() + "#" + aux.getCombustible() + "#" + aux.getNumPlazas()
+                            + aux.getNumPuertas() + "#" + aux.getCombustible() + "#" + aux.getNumPlazas()
                             + "#" + aux.getSillaBebe() + "\n";
                 }
 

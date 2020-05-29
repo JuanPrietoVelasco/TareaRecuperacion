@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
 import java.text.SimpleDateFormat;
@@ -21,12 +17,10 @@ public abstract class Vehiculo {
     private int cilindrada;
     private boolean disponible;
     private Calendar fechaAdquisicion;
-    
+
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    
-    
-    public Vehiculo() {
-    }
+
+   
 
     public Vehiculo(String matricula, String marca, String modelo, int cilindrada) {
 
@@ -63,6 +57,8 @@ public abstract class Vehiculo {
 
         if (!this.alta) {
             setDisponible(false);
+        } else {
+            setDisponible(true);
         }
     }
 
@@ -71,7 +67,6 @@ public abstract class Vehiculo {
     }
 
     public boolean getDisponible() {
-
         return disponible;
     }
 
@@ -94,10 +89,10 @@ public abstract class Vehiculo {
     @Override
     public String toString() {
 
-        String alta = (this.alta) ? "Si" : "No";
-        String disponible = (this.disponible) ? "Si" : "No";
-        
-        return "\nFecha adquisición: " + formato.format(fechaAdquisicion.getTime()) + "\t\tAlta: " + alta + "\t\tDisponible: " + disponible + "\t\tMatrícula: " + this.matricula
+        String alta_ = (this.alta) ? "SI" : "NO";
+        String disponible_ = (this.disponible) ? "SI" : "NO";
+
+        return "\nFecha adquisición: " + formato.format(fechaAdquisicion.getTime()) + "\t\tAlta: " + alta_ + "\t\tDisponible: " + disponible_ + "\t\tMatrícula: " + this.matricula
                 + "\t\tMarca: " + this.marca + "\t\tModelo: " + this.modelo + "\nCilindrada: " + this.cilindrada;
     }
 }
