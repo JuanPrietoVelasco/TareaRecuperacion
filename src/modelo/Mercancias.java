@@ -1,4 +1,3 @@
-
 package modelo;
 
 /**
@@ -36,7 +35,7 @@ public abstract class Mercancias extends Vehiculo {
         return super.toString() + "\t\tPMA: " + pma + "\t\tVolumen: " + volumen;
     }
 
-        @Override
+    @Override
     public String escribirFichero() {
         return super.escribirFichero() + "#" + this.pma + "#" + this.volumen;
     }

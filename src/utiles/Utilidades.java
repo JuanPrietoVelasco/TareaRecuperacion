@@ -14,10 +14,9 @@ import java.util.regex.Pattern;
  */
 public class Utilidades {
 
-
     public static boolean comprobarMatricula(String matricula) {
         //cpmprueba el formato de la matrícula. excluidas las vocales.
-        
+
         Pattern p = Pattern.compile("[0-9]{4}[BCDFGHIJKLMNPQRSTUVWXYZ]{3}");
         Matcher m = p.matcher(matricula);
         return m.matches();
@@ -25,7 +24,7 @@ public class Utilidades {
 
     public static boolean comprobarCodigoPostal(String codigoPostal) {
         //comprueba que el cp esta entre 1000 y 52999
-        
+
         Pattern p = Pattern.compile("0[1-9][0-9]{3}|[1-4][0-9]{4}|5[0-2][0-9]{3}");
         Matcher m = p.matcher(codigoPostal);
         return m.matches();
@@ -80,7 +79,7 @@ public class Utilidades {
         //el dni/nie ya está comprobado y con su letra
         return dni;
     }
-    
+
     public static boolean arrayVacio(Object[] array) {
         //Saber si un array está vacio.
         boolean vacio = true;
@@ -93,5 +92,4 @@ public class Utilidades {
         return vacio;
     }
 
-    
 }

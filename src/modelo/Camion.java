@@ -1,4 +1,3 @@
-
 package modelo;
 
 /**
@@ -6,6 +5,7 @@ package modelo;
  * @author juans
  */
 public final class Camion extends Mercancias {
+
     private int longitud;
     private int altura;
 
@@ -27,11 +27,10 @@ public final class Camion extends Mercancias {
     public String toString() {
         return "Tipo: CAMIÓN" + super.toString() + "\t\tLongitud: " + this.longitud + "\t\tAltura: " + this.altura; //To change body of generated methods, choose Tools | Templates.
     }
-    
-        @Override
+
+    @Override
     public String escribirFichero() {
-        return super.escribirFichero() + "#" +this.longitud + "#" + this.altura + "\n";
+        return super.escribirFichero() + "#" + this.longitud + "#" + this.altura + "\n";
     }
-    
-    
+
 }

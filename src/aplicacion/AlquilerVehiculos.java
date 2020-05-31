@@ -1,3 +1,4 @@
+
 /*EJERCICIO DE RECUPERACIÓN
 
 -En los métodos de borrar, al decidir tratarlo con una variable "alta", me parecio conveniente nombrar las opciones del menu
@@ -15,8 +16,7 @@ baja o cerrados.
 -El proyecto esta sincronizado con un repositorio en GITHUB. https://github.com/JuanPrietoVelasco/TareaRecuperacion.git
 -Respecto al punto "RA4. i) Se han definido y utilizado interfaces" de los criterios de evaluación, no aparece ninguna 
 interface definida en la tarea ni he encontrado como implementarla en el ejercicio.
-*/
-
+ */
 package aplicacion;
 
 import java.text.SimpleDateFormat;
@@ -29,9 +29,7 @@ import static utiles.Utilidades.*;
 import static modelo.Enumerados.*;
 
 /**
- * @author Juan Prieto Velasco
- * Versión final
- * 31/05/2020
+ * @author Juan Prieto Velasco Versión final 31/05/2020
  */
 public class AlquilerVehiculos {
 
@@ -41,7 +39,7 @@ public class AlquilerVehiculos {
     private static Vehiculo[] vehiculos = new Vehiculo[VEHICULOS_MAX];
     private static Cliente[] clientes = new Cliente[CLIENTES_MAX];
     private static Alquiler[] alquileres = new Alquiler[ALQUILERES_MAX];
-    
+
     private static boolean esValido;
     private static int contImprAlta;
     private static int contImprBaja;
@@ -406,17 +404,17 @@ public class AlquilerVehiculos {
         boolean vacio = true;
         contImprAlta = 0;
         contImprBaja = 0;
-        
+
         for (int i = 0; i < clientes.length; i++) {
             if (clientes[i] != null) {
-                vacio = false;              
+                vacio = false;
                 if (clientes[i].getAlta()) {
                     //Listamos todos los clientes de alta
-                    contImprAlta ++;
-                    
+                    contImprAlta++;
+
                     escribir("CLENTE DE ALTA " + contImprAlta);
                     escribirLn(clientes[i].toString());
-                    escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");                    
+                    escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");
                 } else {
                     //Si existe algún cliente de baja modificamos pos
                     pos = i;
@@ -440,10 +438,10 @@ public class AlquilerVehiculos {
                     contImprBaja = 0;
                     if (clientes[i] != null) {
                         if (!clientes[i].getAlta()) {
-                            contImprBaja ++;
+                            contImprBaja++;
                             escribir("CLENTE DE BAJA " + contImprBaja);
                             escribirLn(clientes[i].toString());
-                    escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");                            
+                            escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");
                         }
                     }
                 }
@@ -685,7 +683,7 @@ public class AlquilerVehiculos {
                 vacio = false;
                 if (vehiculos[i].getAlta()) {
                     //Listamos todos los vehículos de alta
-                    contImprAlta ++;
+                    contImprAlta++;
                     escribir("VEHÍCULO DE ALTA " + contImprAlta);
                     escribirLn(vehiculos[i].toString());
                     escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -711,7 +709,7 @@ public class AlquilerVehiculos {
                 for (int i = 0; i < vehiculos.length; i++) {
                     if (vehiculos[i] != null) {
                         if (!vehiculos[i].getAlta()) {
-                            contImprBaja ++;
+                            contImprBaja++;
                             escribir("VEHÍCULO DE BAJA " + contImprBaja);
                             escribirLn(vehiculos[i].toString());
                             escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -903,7 +901,7 @@ public class AlquilerVehiculos {
         int pos = -1;
         contImprAlta = 0;
         contImprBaja = 0;
-        
+
         if (arrayVacio(alquileres)) {
             escribirLn("\n********************ATENCION********************");
             escribirLn("            No existen alquileres.");
@@ -914,7 +912,7 @@ public class AlquilerVehiculos {
             //recorro alquileres imprimiendo los alquileres abiertos
             if (alquileres[i] != null) {
                 if (alquileres[i].getDiasTranscurridos() == 0) {
-                    contImprAlta ++;
+                    contImprAlta++;
                     escribir("\nALQUILER ABIERTO " + contImprAlta);
                     escribirLn(alquileres[i].toString());
                     escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -933,7 +931,7 @@ public class AlquilerVehiculos {
                 for (int i = 0; i < alquileres.length; i++) {
                     if (alquileres[i] != null && alquileres[i].getDiasTranscurridos() > 0) {
                         //imprimo alquileres cerrados
-                        contImprBaja ++;
+                        contImprBaja++;
                         escribir("\nALQUILER CERRADO " + contImprBaja);
                         escribirLn(alquileres[i].toString());
                         escribirLn("   --------------------------------------------------------------------------------------------------------------------------------------------------------");

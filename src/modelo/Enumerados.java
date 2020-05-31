@@ -1,4 +1,3 @@
-
 package modelo;
 
 /**
@@ -6,17 +5,19 @@ package modelo;
  * @author juans
  */
 public class Enumerados {
-    
-    public enum TipoCombustible{
+
+    public enum TipoCombustible {
         GASOLINA, DIESEL, HIBRIDO, ELECTRICO;
-        
-        TipoCombustible(){}
+
+        TipoCombustible() {
+        }
     }
-    
-    public enum Tamanio{
-        
+
+    public enum Tamanio {
+
         GRANDE, MEDIANO, PEQUENIO;
-        
-        Tamanio(){}
+
+        Tamanio() {
+        }
     }
 }

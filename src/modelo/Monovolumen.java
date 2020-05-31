@@ -25,7 +25,7 @@ public final class Monovolumen extends Turismo {
     public TipoCombustible getCombustible() {
         return combustible;
     }
-    
+
     public void setSillaBebe(boolean sillaBebe) {
         this.sillaBebe = sillaBebe;
     }
@@ -52,8 +52,8 @@ public final class Monovolumen extends Turismo {
 
         return "Tipo: MONOVOLUMEN" + super.toString() + "\t\tNúmero de plazas: " + numeroPlazas + "\t\tSilla de bebe: " + sillaBebe;
     }
-    
-     @Override
+
+    @Override
     public String escribirFichero() {
         return super.escribirFichero() + "#" + this.numeroPlazas + "#" + this.sillaBebe + "\n"; //To change body of generated methods, choose Tools | Templates.
     }

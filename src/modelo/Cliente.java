@@ -46,7 +46,7 @@ public class Cliente {
         return this.dni;
     }
 
-    public String getNombreEmpresa(){
+    public String getNombreEmpresa() {
         return this.nombreEmpresa;
     }
 
@@ -82,15 +82,13 @@ public class Cliente {
     public String toString() {
         String alta = (this.alta) ? "SI" : "NO";
 
-        return "\nAlta: " + alta + "\t\tEdad: " + this.edad + "\t\tDni/Nie: " + this.dni + "\t\tEmpresa: " + this.nombreEmpresa + "\t\tNombre: " + this.nombre 
+        return "\nAlta: " + alta + "\t\tEdad: " + this.edad + "\t\tDni/Nie: " + this.dni + "\t\tEmpresa: " + this.nombreEmpresa + "\t\tNombre: " + this.nombre
                 + "\t\tDirección: " + this.direccion + "\nLocalidad: " + this.localidad + "\t\tCódigo postal: " + this.codigoPostal;
     }
-    
-     public String escribirFichero(){
-        
+
+    public String escribirFichero() {
+
         return this.alta + "#" + this.edad + "#" + this.dni + "#" + this.nombreEmpresa + "#" + this.nombre
-                        + "#" + this.direccion + "#" + this.localidad + "#" + this.codigoPostal + "\n";
+                + "#" + this.direccion + "#" + this.localidad + "#" + this.codigoPostal + "\n";
     }
 }
-
-
