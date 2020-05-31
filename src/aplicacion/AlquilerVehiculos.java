@@ -34,7 +34,7 @@ import static modelo.Enumerados.*;
 public class AlquilerVehiculos {
 
     private static final int VEHICULOS_MAX = 40;
-    private static final int CLIENTES_MAX = 5;
+    private static final int CLIENTES_MAX = 40;
     private static final int ALQUILERES_MAX = 40;
     private static Vehiculo[] vehiculos = new Vehiculo[VEHICULOS_MAX];
     private static Cliente[] clientes = new Cliente[CLIENTES_MAX];
