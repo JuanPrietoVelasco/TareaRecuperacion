@@ -841,6 +841,11 @@ public class AlquilerVehiculos {
         /*Metodo creado para buscar cliente y vehículo  a partir de dni y matrícula y así poder pasarlos por parámetro
         a cerrarAlquiler(Cliente c, Vehiculo v)*/
 
+        if (arrayVacio(alquileres)) {
+            escribirLn("\n********************ATENCION********************");
+            escribirLn("            No existen alquileres.");
+            escribirLn("------------------------------------------------\n");
+        }else {
         String dni_ = (leerCadena("Introduce dni/nie del cliente sin letra final.")).toUpperCase();
         if (comprobarDni(dni_)) {
             dni_ = procesarDni(dni_);
@@ -870,7 +875,7 @@ public class AlquilerVehiculos {
             }
 
         }
-
+    }
     }
 
     public static void cerrarAlquiler(Cliente c, Vehiculo v) {
