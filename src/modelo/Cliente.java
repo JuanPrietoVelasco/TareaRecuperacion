@@ -85,4 +85,12 @@ public class Cliente {
         return "\nAlta: " + alta + "\t\tEdad: " + this.edad + "\t\tDni/Nie: " + this.dni + "\t\tEmpresa: " + this.nombreEmpresa + "\t\tNombre: " + this.nombre 
                 + "\t\tDirección: " + this.direccion + "\nLocalidad: " + this.localidad + "\t\tCódigo postal: " + this.codigoPostal;
     }
+    
+     public String escribirFichero(){
+        
+        return this.alta + "#" + this.edad + "#" + this.dni + "#" + this.nombreEmpresa + "#" + this.nombre
+                        + "#" + this.direccion + "#" + this.localidad + "#" + this.codigoPostal + "\n";
+    }
 }
+
+

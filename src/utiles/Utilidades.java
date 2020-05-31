@@ -7,8 +7,6 @@ package utiles;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static utiles.ES.escribirLn;
-import modelo.*;
 
 /**
  *
@@ -16,9 +14,6 @@ import modelo.*;
  */
 public class Utilidades {
 
-
-    public Utilidades() {
-    }
 
     public static boolean comprobarMatricula(String matricula) {
         //cpmprueba el formato de la matrícula. excluidas las vocales.
@@ -37,7 +32,7 @@ public class Utilidades {
     }
 
     public static boolean comprobarDni(String dni) {
-        //    
+        //Nie x,z o y y 7 números/ Dni 8 números 
         Pattern p = Pattern.compile("([XYZ]{1}[0-9]{7})|([0-9]{8})");
         Matcher m = p.matcher(dni);
 
@@ -45,7 +40,7 @@ public class Utilidades {
     }
 
     public static String calcularLetraDni(String dni) {
-        //davuelve  la letra del dni/nie    
+        //devuelve  la letra del dni/nie    
 
         String letras[] = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
         int resto;
@@ -87,7 +82,7 @@ public class Utilidades {
     }
     
     public static boolean arrayVacio(Object[] array) {
-        //Saber si el array está vacio.
+        //Saber si un array está vacio.
         boolean vacio = true;
 
         for (int i = 0; i < array.length && vacio == true; i++) {

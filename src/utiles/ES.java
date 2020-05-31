@@ -72,7 +72,7 @@ public class ES {
                 } else {
                     correcto = false;
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 correcto = false;
                 System.out.println("Introduce un número entre " + min + " y " + max + " .");
             }

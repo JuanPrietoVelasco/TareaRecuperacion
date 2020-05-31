@@ -25,7 +25,12 @@ public final class Camion extends Mercancias {
 
     @Override
     public String toString() {
-        return super.toString() + "\t\tLongitud: " + this.longitud + "\t\tAltura: " + this.altura; //To change body of generated methods, choose Tools | Templates.
+        return "Tipo: CAMIÓN" + super.toString() + "\t\tLongitud: " + this.longitud + "\t\tAltura: " + this.altura; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+        @Override
+    public String escribirFichero() {
+        return super.escribirFichero() + "#" +this.longitud + "#" + this.altura + "\n";
     }
     
     

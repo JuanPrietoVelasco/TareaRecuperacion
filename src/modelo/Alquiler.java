@@ -1,6 +1,5 @@
 package modelo;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import static utiles.ES.*;
@@ -12,6 +11,7 @@ public class Alquiler {
     private final int MILISEGUNDOS_DIA = 24 * 60 * 60 * 1000;
     private static Calendar fecha;
     private int diasTranscurridos;
+    //Declaramos un objeto vehículo y otro alquiler que iremos necesitando en los métodos
     private Vehiculo vehiculo;
     private Cliente cliente;
 
@@ -50,11 +50,12 @@ public class Alquiler {
     public Calendar getFecha() {
         return fecha;
     }
-    
-    public void setFecha(Calendar fecha){
+
+    public void setFecha(Calendar fecha) {
+        //Creamos setFecha para setearla en el alquiler cuando recuperamos el dato del archivo
         this.fecha = fecha;
     }
-    
+
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
@@ -63,9 +64,14 @@ public class Alquiler {
         return diasTranscurridos;
     }
 
+    public void setDiasTranscurridos(int dias) {
+        //Creamos setDiasTranscurridos para setearla en el alquiler cuando recuperamos el dato del archivo
+        this.diasTranscurridos = dias;
+    }
+
     private int calculoDiasTranscurrridos(Calendar fechaFin) {
 
-        long  tiempo1, tiempo2, diferencia_dias;
+        long tiempo1, tiempo2, diferencia_dias;
 
         tiempo1 = fechaFin.getTimeInMillis();
         tiempo2 = this.fecha.getTimeInMillis();
@@ -80,15 +86,15 @@ public class Alquiler {
 
         return (int) diferencia_dias;
 
-    }   
+    }
 
     @Override
     public String toString() {
-        
+
         String estado = (diasTranscurridos == 0) ? "ABIERTO." : "CERRADO.";
         String diasAlq = (diasTranscurridos == 1) ? " día." : " días.";
-        
-        return "\nCliente: " + cliente.toString() + "\n" + "\nVehículo: \n" + vehiculo.toString() 
+
+        return "\nCliente: \n" + cliente.toString() + "\n" + "\nVehículo: \n" + vehiculo.toString()
                 + "\n\nInicio Alquiler: " + FECHA_FORMATO.format(fecha.getTime()) + "\t\tDuración alquiler: "
                 + this.diasTranscurridos + diasAlq + "\t\tEstado de alquiler: " + estado;
     }

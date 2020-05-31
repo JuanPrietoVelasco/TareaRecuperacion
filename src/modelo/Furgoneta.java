@@ -27,7 +27,12 @@ public class Furgoneta extends Mercancias {
 
     @Override
     public String toString() {
-        return super.toString() + "\t\tRefrigerado: " + refrigerado + "\t\tTamaño: " + tamanio;
+        return "Tipo: FURGONETA" + super.toString() + "\t\tRefrigerado: " + refrigerado + "\t\tTamaño: " + tamanio;
+    }
+    
+    @Override
+    public String escribirFichero() {
+        return super.escribirFichero() + "#" +this.refrigerado + "#" + this.tamanio + "\n";
     }
     
 }

@@ -1,4 +1,3 @@
-
 package modelo;
 
 import java.text.SimpleDateFormat;
@@ -19,8 +18,6 @@ public abstract class Vehiculo {
     private Calendar fechaAdquisicion;
 
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-   
 
     public Vehiculo(String matricula, String marca, String modelo, int cilindrada) {
 
@@ -91,8 +88,13 @@ public abstract class Vehiculo {
 
         String alta_ = (this.alta) ? "SI" : "NO";
         String disponible_ = (this.disponible) ? "SI" : "NO";
-
+       
         return "\nFecha adquisición: " + formato.format(fechaAdquisicion.getTime()) + "\t\tAlta: " + alta_ + "\t\tDisponible: " + disponible_ + "\t\tMatrícula: " + this.matricula
                 + "\t\tMarca: " + this.marca + "\t\tModelo: " + this.modelo + "\nCilindrada: " + this.cilindrada;
+    }
+
+    public String escribirFichero() {
+        return this.fechaAdquisicion + "#" + this.alta + "#" + this.disponible
+                + "#" + this.matricula + "#" + this.marca + "#" + this.modelo + "#" + this.cilindrada;
     }
 }

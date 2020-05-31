@@ -21,4 +21,9 @@ public abstract class Turismo extends Vehiculo {
     public String toString() {
         return super.toString() + "\t\tNúmero de puertas: " + this.numeroPuertas + "\t\tCombustible: " + this.combustible;
     }
+    
+        @Override
+    public String escribirFichero() {
+        return super.escribirFichero() + "#" + this.numeroPuertas + "#" + this.combustible;
+    }
 }
